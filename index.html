@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <!-- v2.1 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Committitee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#B8860B;--gold-light:#DAA520;--gold-pale:#FFF8E1;--navy:#1B2A4A;--mid:#48484A;--muted:#8E8E93;--border:#D1D1D6;--bg:#F5F5F7;--bg2:#FFFFFF;--bg3:#EBEBF0;--text:#1C1C1E;--text2:#3A3A3C;--green:#34C759;--red:#FF3B30;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;}
+nav{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.15);}
+.nav-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;}
+.nav-logo{padding:10px 22px;border-right:1px solid rgba(255,255,255,.1);cursor:pointer;}
+.nav-logo-main{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold-light);letter-spacing:3px;line-height:1;}
+.nav-logo-sub{font-size:8px;color:rgba(255,255,255,.4);letter-spacing:3px;text-transform:uppercase;}
+.nav-links{display:flex;list-style:none;overflow-x:auto;}
+.nav-links button{display:block;padding:16px 13px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;}
+.nav-links button:hover{color:rgba(255,255,255,.85);}
+.nav-links button.active{color:var(--gold-light);border-bottom-color:var(--gold-light);}
+.nav-right{margin-left:auto;padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;white-space:nowrap;}
+.ticker{background:var(--navy);padding:5px 0;overflow:hidden;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.08);}
+.ticker-inner{display:inline-block;animation:ticker 55s linear infinite;}
+.ticker-inner span{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:2px;text-transform:uppercase;margin:0 22px;}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#2C3E5A 60%,#1B2A4A 100%);padding:52px 24px 44px;}
+.hero-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,90px);letter-spacing:5px;line-height:.9;color:#FFF;}
+.hero h1 span{color:var(--gold-light);}
+.hero-est{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-top:8px;}
+.hero-stats{display:flex;gap:36px;margin-top:28px;flex-wrap:wrap;}
+.hero-stat-val{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold-light);line-height:1;}
+.hero-stat-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.45);text-transform:uppercase;}
+.page{display:none;}.page-inner{max-width:1320px;margin:0 auto;padding:36px 22px;}
+.sh{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:7px;margin-bottom:20px;}
+.card{background:#fff;border:1px solid var(--border);border-radius:8px;}
+.card-header{background:var(--navy);color:var(--gold-light);padding:8px 14px;border-radius:7px 7px 0 0;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;}
+table{width:100%;border-collapse:collapse;}
+th{padding:8px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border);background:var(--bg3);}
+th:not(:first-child){text-align:center;}
+td{padding:9px 12px;font-size:13px;border-bottom:1px solid var(--border);}
+td:not(:first-child){text-align:center;}
+tr:hover{background:var(--gold-pale);cursor:pointer;}
+tr:last-child td{border-bottom:none;}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;display:inline-block;}
+.pr-item{display:grid;grid-template-columns:50px 1fr 68px 88px 50px;align-items:center;background:#fff;border:1px solid var(--border);padding:11px 15px;margin-bottom:3px;cursor:pointer;border-radius:6px;}
+.pr-item:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);border-color:var(--gold);}
+.pr-rank{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--border);line-height:1;}
+.pr-rank.top3{color:var(--gold);}
+.matchup-row{display:grid;grid-template-columns:1fr 78px 1fr;align-items:center;background:#fff;border:1px solid var(--border);margin-bottom:4px;border-radius:6px;overflow:hidden;}
+.matchup-team{padding:11px 13px;display:flex;align-items:center;gap:9px;}
+.matchup-team.right{flex-direction:row-reverse;justify-content:flex-start;}
+.matchup-score{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--navy);letter-spacing:1px;padding:0 6px;}
+.matchup-score.vs{font-size:12px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;}
+.matchup-team.winner .mtn{color:var(--gold);font-weight:700;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:15px;}
+.team-card{background:#fff;border:1px solid var(--border);border-radius:8px;cursor:pointer;overflow:hidden;transition:box-shadow .15s,transform .15s;position:relative;}
+.team-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.1);transform:translateY(-2px);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;overflow-y:auto;padding:40px 16px;}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+.modal-box{background:#fff;border-radius:12px;max-width:660px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:slideUp .2s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{padding:20px 22px 15px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;}
+.modal-close{background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:15px;padding:3px 10px;}
+.modal-close:hover{background:var(--bg3);}
+.modal-body{padding:20px 22px;}
+.tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:9px 15px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);cursor:pointer;margin-bottom:-2px;}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--gold);}
+.season-tab-btn{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:7px 13px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:var(--mid);cursor:pointer;}
+.season-tab-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--gold);}
+.season-tab-btn.active{background:var(--navy);color:var(--gold-light);border-color:var(--navy);}
+.draft-tab{padding:13px 16px;cursor:pointer;border-bottom:1px solid #D1D1D6;border-left:3px solid transparent;transition:background .15s;}
+.draft-tab:hover{background:#FFF8E1;}
+@media(max-width:820px){.nav-links button{padding:13px 9px;font-size:10px;}.hero h1{font-size:48px;}.pr-item{grid-template-columns:44px 1fr 60px;}}
+
+/* ── HAMBURGER BUTTON ── */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:10px 16px;margin-left:auto;}
+.hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,.8);border-radius:2px;transition:all .25s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* ── MOBILE YEAR SELECT ── */
+.mobile-year-select{display:none;width:100%;padding:11px 14px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#1B2A4A;background:#fff;border:1px solid #D1D1D6;border-radius:6px;margin-bottom:12px;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8860B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+
+/* ── MOBILE BREAKPOINT ── */
+@media(max-width:768px){
+
+  /* Nav */
+  .nav-right{display:none;}
+  .hamburger{display:flex;}
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;right:0;
+    background:var(--navy);
+    flex-direction:column;
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+    z-index:300;
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .nav-links.mobile-open{display:flex;}
+  .nav-links li{border-bottom:1px solid rgba(255,255,255,.07);}
+  .nav-links button{width:100%;text-align:left;padding:14px 20px;font-size:13px;border-bottom:none;}
+  .nav-links button.active{background:rgba(255,255,255,.06);border-left:3px solid var(--gold-light);}
+  nav{position:sticky;top:0;z-index:200;}
+  .nav-inner{position:relative;flex-wrap:nowrap;}
+
+  /* Hero */
+  .hero{padding:32px 18px 28px;}
+  .hero-inner{flex-direction:column;gap:20px;}
+  .hero h1{font-size:52px;}
+  .hero-stats{gap:20px;}
+  .hero-stat-val{font-size:26px;}
+
+  /* Page padding */
+  .page-inner{padding:22px 14px;}
+  .sh{font-size:22px;}
+
+  /* Home grid */
+  .home-grid{grid-template-columns:1fr !important;}
+
+  /* Standings table - horizontal scroll */
+  .standings-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table{min-width:360px;}
+
+  /* Teams grid */
+  .team-grid{grid-template-columns:1fr 1fr !important;gap:10px;}
+
+  /* Power rankings */
+  .pr-item{grid-template-columns:40px 1fr 56px !important;font-size:12px;}
+  .pr-rank{font-size:22px !important;}
+
+  /* Matchup rows */
+  .matchup-row{grid-template-columns:1fr 56px 1fr !important;}
+  .matchup-team{padding:8px 8px !important;gap:6px !important;}
+  .matchup-score{font-size:16px !important;}
+
+  /* Sidebar layouts - stack vertically */
+  .sidebar-grid{grid-template-columns:1fr !important;}
+  .sidebar-grid > div:first-child{display:none !important;}
+  .mobile-year-select{display:block !important;}
+
+  /* Draft / Season panels full width */
+  .sidebar-grid > div:last-child > div[id^="dpanel-"],
+  .sidebar-grid > div:last-child > div[id^="spanel-"]{padding:18px 16px !important;}
+
+  /* Season podium cards */
+  .sidebar-grid [style*="grid-template-columns:1fr 1fr 1fr"]{
+    grid-template-columns:1fr !important;
+  }
+
+  /* Modal full screen */
+  .modal-overlay{padding:0 !important;align-items:flex-end !important;}
+  .modal-box{border-radius:16px 16px 0 0 !important;max-width:100% !important;max-height:90vh;overflow-y:auto;}
+  .modal-header{padding:16px 16px 12px !important;}
+  .modal-body{padding:14px 16px !important;}
+  #modal-logo-wrap{width:48px !important;height:48px !important;}
+
+  /* League history cards */
+  .card{padding:18px 16px !important;}
+
+  /* Season/draft panel inner elements */
+  [id^="dpanel-"] > div:first-child,
+  [id^="spanel-"] > div:first-child{
+    flex-direction:column !important;
+    gap:10px !important;
+  }
+  [id^="dpanel-"] svg,
+  [id^="spanel-"] img{
+    width:100% !important;
+    height:auto !important;
+    max-width:280px;
+  }
+
+  /* Championship history table */
+  .overflow-x-auto{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  #page-history table{min-width:420px;}
+
+  /* Ticker hidden on mobile - saves space */
+  .ticker{display:none;}
+
+  /* Home page countdown */
+  .countdown-grid{gap:12px !important;}
+}
+
+/* ── SMALL PHONE ── */
+@media(max-width:390px){
+  .team-grid{grid-template-columns:1fr !important;}
+  .hero h1{font-size:42px;}
+  .hero-stats{gap:14px;}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker"><div class="ticker-inner">
+<span>2025 Champion: Ryan Carello &mdash; North Attleboro Nighthawks</span>
+<span>The Committitee &mdash; Est. 2019 &mdash; Worcester, MA</span>
+<span>7 Seasons &middot; 7 Different Champions</span>
+<span>Drafts: Montreal &middot; Raleigh &middot; Nashville &middot; Savannah &middot; Pittsburgh &middot; Milwaukee &middot; Maine</span>
+<span>2026 Draft: Gulfport, MS &mdash; Aug 13&ndash;16</span>
+<span>2025 Champion: Ryan Carello &mdash; North Attleboro Nighthawks</span>
+<span>The Committitee &mdash; Est. 2019 &mdash; Worcester, MA</span>
+<span>7 Seasons &middot; 7 Different Champions</span>
+<span>Drafts: Montreal &middot; Raleigh &middot; Nashville &middot; Savannah &middot; Pittsburgh &middot; Milwaukee &middot; Maine</span>
+<span>2026 Draft: Gulfport, MS &mdash; Aug 13&ndash;16</span>
+</div></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" id="nav-logo"><div class="nav-logo-main">The Committitee</div><div class="nav-logo-sub">Fantasy Football League</div></div>
+    <ul class="nav-links" id="nav-links-list">
+      <li><button id="nav-home" class="active">Home</button></li>
+      <li><button id="nav-standings">Standings</button></li>
+      <li><button id="nav-schedule">Schedule</button></li>
+      <li><button id="nav-teams">Teams</button></li>
+      <li><button id="nav-rankings">Power Rankings</button></li>
+      <li><button id="nav-seasons">Season History</button></li>
+      <li><button id="nav-drafts">Draft Locations</button></li>
+      <li><button id="nav-history">League History</button></li>
+      <li><button id="nav-memoriam">In Memoriam</button></li>
+    </ul>
+    <div class="nav-right">2026 Offseason</div>
+    <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>THE<br><span>COMMITTITEE</span></h1>
+      <div class="hero-est">Est. 2019 &middot; Founded Worcester, MA &middot; 12 Teams &middot; 7 Seasons</div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-val">7</div><div class="hero-stat-label">Seasons</div></div>
+        <div><div class="hero-stat-val">12</div><div class="hero-stat-label">Franchises</div></div>
+        <div><div class="hero-stat-val">7</div><div class="hero-stat-label">Draft Cities</div></div>
+        <div><div class="hero-stat-val">7</div><div class="hero-stat-label">Champions</div></div>
+      </div>
+    </div>
+    <div style="text-align:center;flex-shrink:0">
+      <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Next Draft Weekend</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:#DAA520;line-height:1;margin-bottom:1px">Gulfport, MS</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:2px;margin-bottom:14px">Aug 13&ndash;16, 2026</div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <div style="text-align:center"><div id="cd-days" style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#DAA520;line-height:1;min-width:56px">0</div><div style="font-size:9px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-top:3px">Days</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(255,255,255,.2);line-height:1;padding-top:3px">:</div>
+        <div style="text-align:center"><div id="cd-hours" style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#DAA520;line-height:1;min-width:56px">00</div><div style="font-size:9px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-top:3px">Hrs</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(255,255,255,.2);line-height:1;padding-top:3px">:</div>
+        <div style="text-align:center"><div id="cd-mins" style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#DAA520;line-height:1;min-width:56px">00</div><div style="font-size:9px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-top:3px">Mins</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(255,255,255,.2);line-height:1;padding-top:3px">:</div>
+        <div style="text-align:center"><div id="cd-secs" style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#DAA520;line-height:1;min-width:56px">00</div><div style="font-size:9px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-top:3px">Secs</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  function tick(){
+    var t=new Date(2026,7,13,9,0,0)-new Date();
+    if(t<0)t=0;
+    document.getElementById('cd-days').textContent=Math.floor(t/86400000);
+    document.getElementById('cd-hours').textContent=('0'+Math.floor(t%86400000/3600000)).slice(-2);
+    document.getElementById('cd-mins').textContent=('0'+Math.floor(t%3600000/60000)).slice(-2);
+    document.getElementById('cd-secs').textContent=('0'+Math.floor(t%60000/1000)).slice(-2);
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+
+<!-- HOME -->
+<div class="page" id="page-home" style="display:block">
+  <div class="page-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:30px">
+      <div>
+        <div class="sh">Standings</div>
+        <div class="card"><table><thead><tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>Strk</th></tr></thead><tbody id="home-standings"></tbody></table></div>
+        <div style="text-align:right;margin-top:8px"><button onclick="showPage('standings')" style="background:none;border:none;color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Full Standings &#8594;</button></div>
+      </div>
+      <div>
+        <div class="sh">Power Rankings</div>
+        <div id="home-pr"></div>
+        <div style="text-align:right;margin-top:8px"><button onclick="showPage('rankings')" style="background:none;border:none;color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Full Rankings &#8594;</button></div>
+      </div>
+    </div>
+    <div><div class="sh">Last Season Matchups</div><div id="home-matchups"></div></div>
+  </div>
+</div>
+
+<!-- STANDINGS -->
+<div class="page" id="page-standings">
+  <div class="page-inner">
+    <div class="sh">League Standings</div>
+    <div style="text-align:center;padding:60px 20px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:4px;color:#1B2A4A;margin-bottom:10px">Season Coming Soon</div>
+      <div style="font-size:14px;color:#8E8E93;line-height:1.7;max-width:420px;margin:0 auto">Divisions will be set at draft weekend in Gulfport, MS. Standings will update once the 2026 season kicks off.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="page" id="page-schedule">
+  <div class="page-inner">
+    <div class="sh">2026 Season Schedule</div>
+    <div style="text-align:center;padding:60px 20px">
+      <div style="font-size:48px;margin-bottom:16px">&#127944;</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:4px;color:#1B2A4A;margin-bottom:10px">Season Coming Soon</div>
+      <div style="font-size:14px;color:#8E8E93;line-height:1.7;max-width:420px;margin:0 auto">The 2026 season schedule will be posted once the draft is complete. Check back after draft weekend in Gulfport, MS.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAMS -->
+<div class="page" id="page-teams"><div class="page-inner"><div class="sh">All Franchises</div><div class="team-grid" id="teams-grid"></div></div></div>
+
+<!-- RANKINGS -->
+<div class="page" id="page-rankings">
+  <div class="page-inner">
+    <div class="sh">Power Rankings</div>
+    <div id="rankings-list"></div>
+    <div style="background:var(--gold-pale);border:1px solid #E6D48A;border-radius:8px;padding:16px 18px;margin-top:22px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Commissioner's Note</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;font-style:italic">"The Committitee was founded in 2019 on the principle that a fantasy league should be run with the same professionalism as the organizations whose players we draft. Power rankings rotate among members each week &mdash; creative editorial standards may apply. All rankings are the opinion of the author. Except when they align with my own, in which case they are simply fact."</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-top:8px">&mdash; The Commississioner, Trevor Shaw</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEASON HISTORY -->
+<div class="page" id="page-seasons">
+  <div class="page-inner">
+    <div class="sh">Season History</div>
+    <p style="color:#8E8E93;font-size:13px;margin-bottom:22px;line-height:1.6">Seven seasons, seven cities, seven different champions. Select a year to explore the full season.</p>
+    <select class="mobile-year-select" id="season-year-select" onchange="switchSeason(parseInt(this.value))">
+      <option value="2025">2025 Season</option>
+      <option value="2024">2024 Season</option>
+      <option value="2023">2023 Season</option>
+      <option value="2022">2022 Season</option>
+      <option value="2021">2021 Season</option>
+      <option value="2020">2020 Season</option>
+      <option value="2019">2019 Season</option>
+    </select>
+    <div style="display:grid;grid-template-columns:200px 1fr;border:1px solid #D1D1D6;border-radius:8px;overflow:hidden;background:#fff" class="sidebar-grid">
+      <div style="border-right:1px solid #D1D1D6;background:#F5F5F7">
+        <div class="draft-tab" id="stab-2025" onclick="switchSeason(2025)" style="border-left:3px solid #B8860B;background:#FFF8E1"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2025</div><div style="font-size:11px;color:#8E8E93">Brownfield, ME</div></div>
+        <div class="draft-tab" id="stab-2024" onclick="switchSeason(2024)"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2024</div><div style="font-size:11px;color:#8E8E93">Milwaukee, WI</div></div>
+        <div class="draft-tab" id="stab-2023" onclick="switchSeason(2023)"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2023</div><div style="font-size:11px;color:#8E8E93">Pittsburgh, PA</div></div>
+        <div class="draft-tab" id="stab-2022" onclick="switchSeason(2022)"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2022</div><div style="font-size:11px;color:#8E8E93">Savannah, GA</div></div>
+        <div class="draft-tab" id="stab-2021" onclick="switchSeason(2021)"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2021</div><div style="font-size:11px;color:#8E8E93">Nashville, TN</div></div>
+        <div class="draft-tab" id="stab-2020" onclick="switchSeason(2020)"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2020</div><div style="font-size:11px;color:#8E8E93">Raleigh, NC</div></div>
+        <div class="draft-tab" id="stab-2019" onclick="switchSeason(2019)"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2019</div><div style="font-size:11px;color:#8E8E93">Montreal, QC</div></div>
+      </div>
+      <div>
+        <div id="spanel-2025" style="padding:26px 30px;display:block">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2025 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Brownfield, ME &nbsp;&middot;&nbsp; Aug 2025</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">North Attleboro Nighthawks</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Ryan Carello</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">North Reading Nor'Easters</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Norm Harris</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Middlesex Muskrats</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Adam Macsata</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Norm Harris</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Norm Harris</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Norm Harris</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Carello built a wire-to-wire monster — 11-3, top-five points, dominant in both the regular season and postseason. Norm Harris had arguably the best statistical season in league history: highest record, most points scored, best all-play mark. He swept every in-season award. Then he lost in the championship game. For Carello it was vindication. For Norm it was the latest in a growing catalogue of elite regular seasons that somehow don't end with a ring. Macsata finished third for the second time. The scoring rules came under fire during championship week, with kicker volatility and TE value sparking a constitutional debate that carried over into the 2026 offseason.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Can't wait for the amount of side conversations after Colin crumbles in his first playoff game.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Fourteen Beers at Chili's</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Next year we should make every missed kicking yard -0.25 points.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Norm H</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Norm, you realize that means missing a 50-yard kick would be -12.5 points?</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2025)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+        <div id="spanel-2024" style="padding:26px 30px;display:none">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2024 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Milwaukee, WI &nbsp;&middot;&nbsp; Aug 2024</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">Merritt Island Aussies</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Logan McConnell</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Waltham Walruses</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Drew Egger</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">The Hartford Hecklers</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Colin Rose</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Colin Rose</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Drew Egger</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Drew Egger</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Logan McConnell had been quietly building for six seasons. In 2024 he put it together — methodical roster management, no major injuries, clean execution in the playoffs. Drew Egger, perennial contender, reached the final again and came up short again. Colin Rose led the league in regular season scoring and in-season awards, then lost in the first round. Barney conducted what the commissioner called &ldquo;a masterclass in tanking&rdquo; — finished near the bottom, hoarded picks for 2025 and 2026, and made sure everyone knew it was intentional. Josh Levene went 9-5 in his debut season and discovered what the waiver wire looks like when twelve experienced managers are all bidding on the same players.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Barney trying to put the finishing touch on his masterclass in tanking &mdash; might be the most impressive season by a non-playoff team I've seen.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">It's one thing to have draft picks at the draft. It's another to have chips you can use for real assets during the season.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Barney</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">No offense Musky, but my favorite part of this league is how into it the guys at the bottom of the standings are.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2024)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+        <div id="spanel-2023" style="padding:26px 30px;display:none">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2023 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Pittsburgh, PA &nbsp;&middot;&nbsp; Aug 12, 2023</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">Stratford Sauce</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Chris Clark</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">The Hartford Hecklers</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Colin Rose</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Nashua Crusaders</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Trevor Shaw</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Norm Harris</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Chris Clark</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Trevor Shaw</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Clark spent years finding undervalued receivers before they popped. In 2023 he went all-in &mdash; traded his entire future for present firepower and won the championship. Meanwhile Barney, going nowhere in the standings, executed one of the most discussed trades in league history: he turned Mixon, Swift, Diontae Johnson, Romeo Doubs, and $60 in FAAB into Pacheco, Ridley, an A keeper, and five second-round picks. The commissioner said hats off. The league debated tanking philosophy for two weeks. The league moved from Yahoo to Sleeper that season, and the waiver wire was described by O'Regan as &ldquo;probably the most difficult WW of any league I play in.&rdquo; Norm swept in-season awards. Clark took points and the ring. Shaw won all-play.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">I love the 10 AM waivers, sitting here losing my mind on bids &mdash; it's awesome.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Drew Egger</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Our waiver wire is probably the most difficult WW of any league I play in. Everyone is weeks ahead.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">The market is so broken right now, people mortgaging multiple years in their future for marginal improvement in one season. Hats off to Barney for capitalizing.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2023)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+        <div id="spanel-2022" style="padding:26px 30px;display:none">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2022 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Savannah, GA &nbsp;&middot;&nbsp; Aug 13, 2022</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">The Hartford Hecklers</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Colin Rose</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Middlesex Muskrats</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Adam Macsata</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">North Reading Nor'Easters</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Norm Harris</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Michael Barney</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Michael Barney</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Michael Barney</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Barney went 12-2 and swept every in-season award. Then he lost in the playoffs. Colin Rose, who had been in the league since day one without a ring, won the championship. O'Regan started Aaron Rodgers somewhere between his 13th and 18th tequila soda at a holiday party, woke up with no starting QB, and exited the playoffs shortly after. Macsata and Pratt ran a September trade that the commissioner flagged as potential collusion before determining it was just a very strange deal &mdash; Macsata quoted the constitution back at him, word for word, until the trade stood.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Musky and Pratt have a trade but I think it’s collusion &mdash; but apparently we’ve done similar trades in the past.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Sometimes the captain just has to go down with the ship.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Adam Macsata</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Egger is in the Sacko bracket and Carello isn't.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2022)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+        <div id="spanel-2021" style="padding:26px 30px;display:none">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2021 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Nashville, TN &nbsp;&middot;&nbsp; Aug 14&ndash;15, 2021</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">Nashua Crusaders</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Trevor Shaw</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Fresh Prince of Helaire</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Ryan Carello</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">CeeDeez Nutz</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Adam Macsata</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Matt Pratt</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Matt Pratt</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Matt Pratt</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Shaw won his first championship. Carello reached the final for the second consecutive year and came up empty again. Macsata finished third. The chat spent most of December arguing about playoff seeding, Dalvin Cook's injury status, and why Commississioner hadn't updated the Yahoo settings. Norm tanked his way to elite draft position for 2022 — the commissioner noted he was outscoring half the league while doing it, calling it &ldquo;never seen such elite-ness.&rdquo; Matt Pratt swept every in-season award. Shaw got the ring.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Norms tanking and outscores half the league every week &mdash; never seen such elite-ness.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Motion that Barney can't make any trades after midnight anymore.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Adam Macsata</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Diontae Johnson is the best WR in football. @me.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2021)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+        <div id="spanel-2020" style="padding:26px 30px;display:none">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2020 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Raleigh, NC &nbsp;&middot;&nbsp; Aug 14&ndash;17, 2020</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">My Ball Zach Ertz</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Matt Pratt</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Slayton Younghoes</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Ryan Carello</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">FF Federalist Papers</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Mike O'Regan</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Ryan Carello</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Ryan Carello</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Ryan Carello</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Matt Pratt won the 2020 championship from his couch in Massachusetts. Carello scored the most points in the league, won the all-play, and finished runner-up. O'Regan finished third. Yahoo had a waiver wire glitch in week 14 that briefly processed claims it shouldn't have, generating a rules crisis that took days to resolve. Belleville departed after the season. Shaw described his own team as &ldquo;ass&rdquo; in early December before realizing he&rsquo;d typed &ldquo;tanked&rdquo; as &ldquo;ranked.&rdquo; Barney announced he was going to buy something extravagant with his first-place winnings. He did not finish first.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Safe to say Trev's team is ASS.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">*tanked</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Here are all the scenarios for seeds 1-5 which I think I did right. Sorry it came out so bad.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Drew Egger</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2020)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+        <div id="spanel-2019" style="padding:26px 30px;display:none">
+          <div style="margin-bottom:18px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">2019 Season</div>
+            <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">Montreal, QC &nbsp;&middot;&nbsp; Aug 16&ndash;18, 2019</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#1B2A4A;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#127942; Champion</div>
+              <div style="font-size:14px;font-weight:700;color:#DAA520">Trev make me Hardman</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px">Drew Egger</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129352; Runner-Up</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Collusion</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Michael Barney</div>
+            </div>
+            <div style="background:#F5F5F7;border:1px solid #D1D1D6;border-radius:6px;padding:11px 13px">
+              <div style="font-size:9px;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;font-weight:700;margin-bottom:4px">&#129353; Third Place</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Saquon Dedeez Nuts</div>
+              <div style="font-size:11px;color:#8E8E93;margin-top:2px">Trevor Shaw</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">In-Season Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Ryan Carello</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">Points Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Michael Barney</div>
+            </div>
+            <div style="background:#FFF8E1;border:1px solid #E6D48A;border-radius:6px;padding:10px 12px">
+              <div style="font-size:9px;letter-spacing:2px;color:#B8860B;text-transform:uppercase;font-weight:700;margin-bottom:3px">All-Play Champ</div>
+              <div style="font-size:13px;font-weight:700;color:#1B2A4A">Michael Barney</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">The inaugural season. The scoring felt completely different from the start — O'Regan noted after week one that &ldquo;defenses are juiced&rdquo; under the custom settings. Logan McConnell offered Antonio Brown on the trade market at any price, &ldquo;up to and including a pile of poop.&rdquo; Shaw won on the last play of the week when a running back picked up a first down on an unnecessary statement carry. Egger built the deepest team in the field, rode it to the championship, and beat Barney in the final. Shaw finished third. The Committitee had its first champion.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Taking offers for AB. Willing to trade up to and including a pile of poop.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Logan McConnell</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">The subtle scoring differences are legit &mdash; defenses are juiced.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">I literally won on the last play &mdash; unnecessary statement run for a 13-yard first down.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('drafts');switchDraft(2019)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#F5F5F7;color:#1B2A4A;border:1px solid #D1D1D6;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW DRAFT WEEKEND &#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DRAFT LOCATIONS -->
+<div class="page" id="page-drafts">
+  <div class="page-inner">
+    <div class="sh">Draft Weekend Locations</div>
+    <p style="color:#8E8E93;font-size:13px;margin-bottom:22px;line-height:1.6">The Committitee has held its annual draft weekend in a new city every year since 2019 &mdash; a founding principle of the league. Locations are voted on by owners each offseason.</p>
+    <select class="mobile-year-select" id="draft-year-select" onchange="switchDraft(this.value)">
+      <option value="2025">2025 &mdash; Brownfield, ME</option>
+      <option value="2024">2024 &mdash; Milwaukee, WI</option>
+      <option value="2023">2023 &mdash; Pittsburgh, PA</option>
+      <option value="2022">2022 &mdash; Savannah, GA</option>
+      <option value="2021">2021 &mdash; Nashville, TN</option>
+      <option value="2020">2020 &mdash; Raleigh, NC</option>
+      <option value="2019">2019 &mdash; Montreal, QC</option>
+    </select>
+    <div style="display:grid;grid-template-columns:200px 1fr;border:1px solid #D1D1D6;border-radius:8px;overflow:hidden;background:#fff" class="sidebar-grid">
+      <div style="border-right:1px solid #D1D1D6;background:#F5F5F7">
+        <div class="draft-tab" id="dtab-2025" onclick="switchDraft('2025')" style="border-left:3px solid #B8860B;background:#FFF8E1"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2025</div><div style="font-size:11px;color:#8E8E93">Brownfield, ME</div></div>
+        <div class="draft-tab" id="dtab-2024" onclick="switchDraft('2024')" ><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2024</div><div style="font-size:11px;color:#8E8E93">Milwaukee, WI</div></div>
+        <div class="draft-tab" id="dtab-2023" onclick="switchDraft('2023')" ><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2023</div><div style="font-size:11px;color:#8E8E93">Pittsburgh, PA</div></div>
+        <div class="draft-tab" id="dtab-2022" onclick="switchDraft('2022')" ><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2022</div><div style="font-size:11px;color:#8E8E93">Savannah, GA</div></div>
+        <div class="draft-tab" id="dtab-2021" onclick="switchDraft('2021')" ><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2021</div><div style="font-size:11px;color:#8E8E93">Nashville, TN</div></div>
+        <div class="draft-tab" id="dtab-2020" onclick="switchDraft('2020')" ><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2020</div><div style="font-size:11px;color:#8E8E93">Raleigh, NC</div></div>
+        <div class="draft-tab" id="dtab-2019" onclick="switchDraft('2019')" style="border-bottom:none"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#1B2A4A">2019</div><div style="font-size:11px;color:#8E8E93">Montreal, QC</div></div>
+      </div>
+      <div>
+        <div id="dpanel-2025" style="padding:26px 30px;display:block">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Brownfield</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">ME &nbsp;&middot;&nbsp; Aug 2025</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#5BA3D9"/>
+  <ellipse cx="50" cy="22" rx="24" ry="10" fill="#FFFFFF" opacity=".85"/>
+  <ellipse cx="68" cy="17" rx="16" ry="9" fill="#FFFFFF" opacity=".85"/>
+  <ellipse cx="155" cy="26" rx="20" ry="8" fill="#FFFFFF" opacity=".75"/>
+  <ellipse cx="172" cy="20" rx="14" ry="7" fill="#FFFFFF" opacity=".75"/>
+  <circle cx="195" cy="22" r="13" fill="#F5C842"/>
+  <line x1="195" y1="5" x2="195" y2="9" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="195" y1="35" x2="195" y2="39" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="178" y1="22" x2="182" y2="22" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="208" y1="22" x2="212" y2="22" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="110" cy="90" rx="120" ry="30" fill="#5A8A3A"/>
+  <ellipse cx="30" cy="85" rx="55" ry="25" fill="#4A7A2A"/>
+  <ellipse cx="190" cy="88" rx="55" ry="22" fill="#4A7A2A"/>
+  <ellipse cx="110" cy="80" rx="40" ry="10" fill="#4A90C8"/>
+  <ellipse cx="110" cy="80" rx="32" ry="6" fill="#5BA3D9" opacity=".55"/>
+  <polygon points="8,72 16,44 24,72" fill="#2A5020"/><rect x="15" y="72" width="3" height="8" fill="#5A3A18"/>
+  <polygon points="20,74 30,42 40,74" fill="#336028"/><rect x="28" y="74" width="3" height="8" fill="#5A3A18"/>
+  <polygon points="36,72 48,38 60,72" fill="#2A5020"/><rect x="46" y="72" width="4" height="10" fill="#5A3A18"/>
+  <polygon points="52,72 66,34 80,72" fill="#336028"/><rect x="63" y="72" width="4" height="10" fill="#5A3A18"/>
+  <polygon points="142,72 156,34 170,72" fill="#2A5020"/><rect x="154" y="72" width="4" height="10" fill="#5A3A18"/>
+  <polygon points="158,74 170,38 182,74" fill="#336028"/><rect x="168" y="74" width="3" height="8" fill="#5A3A18"/>
+  <polygon points="174,72 184,44 194,72" fill="#2A5020"/><rect x="182" y="72" width="3" height="8" fill="#5A3A18"/>
+  <polygon points="186,72 196,42 206,72" fill="#336028"/><rect x="194" y="72" width="3" height="8" fill="#5A3A18"/>
+  <line x1="88" y1="80" x2="100" y2="80" stroke="#FFFFFF" stroke-width="1.2" opacity=".4"/>
+  <line x1="116" y1="78" x2="126" y2="78" stroke="#FFFFFF" stroke-width="1.2" opacity=".3"/>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">Brownfield, Maine was Trevor's consolation pick after his Naples proposal went down in flames. The league rented a cabin in the woods and held the draft the night before Norm Harris's daughter was born. Norm attended via Zoom, which he coordinated from the hospital waiting room. Carello came in as the defending non-champion and dominated wire to wire, winning the whole thing and immediately changing his display name in the chat to 'Undisputed GOAT.' Seven seasons in, the league has never had a repeat champion. Nobody is sure whether to be proud of that or worried about it.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Special shout out to commissioner Trevor and assistant commissioner Michael for stewarding this great league.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Barney</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Boys I am happy to report this place is fucking sick.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Drew Egger</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Electricity in the air tonight.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2025)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2025 SEASON &#8594;</button>
+          </div>
+        </div>
+        <div id="dpanel-2024" style="padding:26px 30px;display:none">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Milwaukee</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">WI &nbsp;&middot;&nbsp; Aug 2024</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#87CEEB"/>
+  <circle cx="190" cy="20" r="13" fill="#F5C842"/>
+  <ellipse cx="35" cy="18" rx="22" ry="9" fill="#FFFFFF" opacity=".9"/>
+  <ellipse cx="52" cy="13" rx="16" ry="8" fill="#FFFFFF" opacity=".9"/>
+  <rect x="0" y="80" width="220" height="30" fill="#4A8FC0"/>
+  <rect x="0" y="86" width="220" height="4" fill="#5BA3D9" opacity=".5"/>
+  <rect x="0"  y="52" width="18" height="28" fill="#C8B090"/>
+  <rect x="16" y="42" width="16" height="38" fill="#D4BCA0"/>
+  <rect x="30" y="48" width="14" height="32" fill="#C8B090"/>
+  <rect x="42" y="30" width="20" height="50" fill="#D4BCA0"/>
+  <polygon points="42,30 52,12 62,30" fill="#C8B090"/>
+  <rect x="50" y="6" width="5" height="8" fill="#C8B090"/>
+  <rect x="60" y="36" width="16" height="44" fill="#C8B090"/>
+  <rect x="74" y="28" width="24" height="52" fill="#BCA888"/>
+  <rect x="96" y="34" width="18" height="46" fill="#D4BCA0"/>
+  <rect x="112" y="38" width="20" height="42" fill="#C8B090"/>
+  <rect x="130" y="26" width="22" height="54" fill="#BCA888"/>
+  <polygon points="130,26 141,8 152,26" fill="#C8B090"/>
+  <rect x="150" y="42" width="18" height="38" fill="#D4BCA0"/>
+  <rect x="166" y="46" width="20" height="34" fill="#C8B090"/>
+  <rect x="184" y="50" width="36" height="30" fill="#BCA888"/>
+  <rect x="44" y="36" width="4" height="4" fill="#87CEEB" opacity=".8"/>
+  <rect x="52" y="36" width="4" height="4" fill="#87CEEB" opacity=".8"/>
+  <rect x="76" y="34" width="4" height="4" fill="#87CEEB" opacity=".8"/>
+  <rect x="84" y="34" width="4" height="4" fill="#87CEEB" opacity=".8"/>
+  <rect x="132" y="32" width="4" height="4" fill="#87CEEB" opacity=".8"/>
+  <rect x="140" y="32" width="4" height="4" fill="#87CEEB" opacity=".8"/>
+  <rect x="8" y="66" width="22" height="22" rx="3" fill="#D4A017" opacity=".9"/>
+  <rect x="10" y="68" width="18" height="18" rx="2" fill="#F0C040"/>
+  <ellipse cx="19" cy="68" rx="9" ry="4" fill="#F5F0DC"/>
+  <path d="M30 70 Q38 70 38 76 Q38 82 30 82" fill="none" stroke="#D4A017" stroke-width="3" stroke-linecap="round"/>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">Milwaukee had been on the list for years. It finally landed when the State Fair timing lined up and the house near the lakefront came in under budget. Musky had a mandatory work conflict and attended by laptop. Clark missed it for his wife's pregnancy. Barney flew first class on points and did not shut up about it. The Brewers game on Saturday ended with a free City Connect jersey promotion that Josh Levene, in his first year as an owner, parlayed into a championship run. Colin's connecting flight through Chicago was delayed, but he made it. Norm drove from Boston. Logan McConnell, operating silently from Cape Canaveral, won the whole thing in year six.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">I'm flying first class to Waukee so I can be nice and centered when I outclass you fools.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Barney</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">&ldquo;I can't find Jillys switch&rdquo; — is that frequently an issue or...?</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Adam Macsata</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">First Musky, now Barney&hellip; this group is having to endure some rough last-minute L's.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Fourteen Beers at Chili's</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2024)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2024 SEASON &#8594;</button>
+          </div>
+        </div>
+        <div id="dpanel-2023" style="padding:26px 30px;display:none">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Pittsburgh</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">PA &nbsp;&middot;&nbsp; Aug 12, 2023</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#7BB8E8"/>
+  <circle cx="22" cy="20" r="12" fill="#F5C842"/>
+  <ellipse cx="130" cy="15" rx="22" ry="8" fill="#FFFFFF" opacity=".85"/>
+  <ellipse cx="150" cy="11" rx="17" ry="7" fill="#FFFFFF" opacity=".85"/>
+  <path d="M0 86 Q55 78 110 83 Q165 88 220 80 L220 110 L0 110 Z" fill="#5A9AD0"/>
+  <path d="M110 83 Q96 68 60 62 L0 66 L0 86 Q55 78 110 83 Z" fill="#5090C0"/>
+  <polygon points="108,83 100,66 120,66" fill="#5A8A3A"/>
+  <rect x="90" y="34" width="40" height="36" fill="#C8D8E8"/>
+  <line x1="96" y1="34" x2="96" y2="70" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="103" y1="34" x2="103" y2="70" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="110" y1="34" x2="110" y2="70" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="117" y1="34" x2="117" y2="70" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="124" y1="34" x2="124" y2="70" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="90" y1="42" x2="130" y2="42" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="90" y1="50" x2="130" y2="50" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="90" y1="58" x2="130" y2="58" stroke="#A8C0D8" stroke-width="1"/>
+  <line x1="90" y1="66" x2="130" y2="66" stroke="#A8C0D8" stroke-width="1"/>
+  <polygon points="90,34 96,20 102,34" fill="#B8C8D8"/>
+  <polygon points="97,34 103,18 109,34" fill="#B8C8D8"/>
+  <polygon points="104,34 110,22 116,34" fill="#B8C8D8"/>
+  <polygon points="111,34 117,20 123,34" fill="#B8C8D8"/>
+  <polygon points="118,34 124,26 130,34" fill="#B8C8D8"/>
+  <rect x="0"  y="50" width="18" height="20" fill="#D4C4A8"/>
+  <rect x="16" y="42" width="16" height="28" fill="#C8B898"/>
+  <rect x="30" y="46" width="14" height="24" fill="#D4C4A8"/>
+  <rect x="42" y="36" width="18" height="34" fill="#C8B898"/>
+  <rect x="58" y="40" width="16" height="30" fill="#D4C4A8"/>
+  <rect x="72" y="34" width="18" height="36" fill="#C8B898"/>
+  <rect x="130" y="32" width="20" height="38" fill="#C8B898"/>
+  <rect x="148" y="40" width="18" height="30" fill="#D4C4A8"/>
+  <rect x="164" y="44" width="20" height="26" fill="#C8B898"/>
+  <rect x="182" y="48" width="38" height="22" fill="#D4C4A8"/>
+  <line x1="0" y1="83" x2="88" y2="78" stroke="#D4A820" stroke-width="3"/>
+  <line x1="30" y1="72" x2="30" y2="83" stroke="#D4A820" stroke-width="2.5"/>
+  <line x1="50" y1="72" x2="50" y2="80" stroke="#D4A820" stroke-width="2"/>
+  <line x1="30" y1="74" x2="88" y2="78" stroke="#D4A820" stroke-width="1.2"/>
+  <line x1="132" y1="80" x2="220" y2="76" stroke="#D4A820" stroke-width="2.5"/>
+  <line x1="170" y1="72" x2="170" y2="80" stroke="#D4A820" stroke-width="2.5"/>
+  <line x1="170" y1="74" x2="220" y2="76" stroke="#D4A820" stroke-width="1.2"/>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">Pittsburgh was Norm's pick, and he did advance scouting in person in April to lock in the Airbnb and scout bars near the venue. Josh Levene joined the league as the twelfth owner, taking over Matt Pratt's franchise after Pratt departed. Pratt was still the property manager for the Airbnb. Musky joined remotely from Boston and spent the draft visibly annoyed via Zoom. Clark camped out at City Works near O'Regan's office before the group arrived. King Poo stayed sober long enough to hold a competitive advantage over half the field on draft morning. Sauce traded his entire future and walked away with the ring.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">I have a competitive advantage rn — half of you are grossly hungover.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; King Poo</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">My whole soul wants to just say fuck exams and send it to Pitt.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Two Time 1st Loser</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">The suggestion was less &lsquo;anti-school&rsquo; and more &lsquo;pro-the boys.&rsquo;</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2023)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2023 SEASON &#8594;</button>
+          </div>
+        </div>
+        <div id="dpanel-2022" style="padding:26px 30px;display:none">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Savannah</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">GA &nbsp;&middot;&nbsp; Aug 13, 2022</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#87CEEB"/>
+  <circle cx="185" cy="22" r="13" fill="#F5C842"/>
+  <ellipse cx="28" cy="18" rx="22" ry="9" fill="#FFFFFF" opacity=".9"/>
+  <ellipse cx="44" cy="13" rx="16" ry="8" fill="#FFFFFF" opacity=".9"/>
+  <ellipse cx="110" cy="14" rx="18" ry="7" fill="#FFFFFF" opacity=".8"/>
+  <rect x="0" y="80" width="220" height="30" fill="#B8845A"/>
+  <ellipse cx="18" cy="83" rx="7" ry="3" fill="#A07040"/><ellipse cx="36" cy="85" rx="7" ry="3" fill="#C09060"/>
+  <ellipse cx="56" cy="83" rx="7" ry="3" fill="#A07040"/><ellipse cx="76" cy="85" rx="7" ry="3" fill="#C09060"/>
+  <ellipse cx="96" cy="83" rx="7" ry="3" fill="#A07040"/><ellipse cx="116" cy="85" rx="7" ry="3" fill="#C09060"/>
+  <ellipse cx="136" cy="83" rx="7" ry="3" fill="#A07040"/><ellipse cx="156" cy="85" rx="7" ry="3" fill="#C09060"/>
+  <ellipse cx="176" cy="83" rx="7" ry="3" fill="#A07040"/><ellipse cx="196" cy="85" rx="7" ry="3" fill="#C09060"/>
+  <ellipse cx="28" cy="92" rx="7" ry="3" fill="#C09060"/><ellipse cx="48" cy="95" rx="7" ry="3" fill="#A07040"/>
+  <ellipse cx="68" cy="92" rx="7" ry="3" fill="#C09060"/><ellipse cx="88" cy="95" rx="7" ry="3" fill="#A07040"/>
+  <ellipse cx="108" cy="92" rx="7" ry="3" fill="#C09060"/><ellipse cx="128" cy="95" rx="7" ry="3" fill="#A07040"/>
+  <ellipse cx="148" cy="92" rx="7" ry="3" fill="#C09060"/><ellipse cx="168" cy="95" rx="7" ry="3" fill="#A07040"/>
+  <ellipse cx="188" cy="92" rx="7" ry="3" fill="#C09060"/>
+  <!-- Left oak -->
+  <rect x="8" y="54" width="8" height="32" fill="#7A5A30"/>
+  <path d="M12 54 Q-4 44 0 26 Q4 16 14 22" fill="none" stroke="#7A5A30" stroke-width="5" stroke-linecap="round"/>
+  <path d="M12 54 Q28 42 36 30 Q42 22 32 18" fill="none" stroke="#7A5A30" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="4" cy="26" rx="16" ry="11" fill="#4A7830"/>
+  <ellipse cx="18" cy="22" rx="14" ry="10" fill="#5A8A38"/>
+  <ellipse cx="32" cy="28" rx="12" ry="9" fill="#4A7830"/>
+  <path d="M2 28 Q0 40 4 52" fill="none" stroke="#8A9A60" stroke-width="1.8" opacity=".9"/>
+  <path d="M10 24 Q8 36 12 48" fill="none" stroke="#8A9A60" stroke-width="1.4" opacity=".8"/>
+  <path d="M22 24 Q24 36 20 50" fill="none" stroke="#8A9A60" stroke-width="1.8" opacity=".9"/>
+  <path d="M34 28 Q36 40 32 52" fill="none" stroke="#8A9A60" stroke-width="1.4" opacity=".8"/>
+  <!-- Right oak -->
+  <rect x="204" y="54" width="8" height="32" fill="#7A5A30"/>
+  <path d="M208 54 Q224 44 220 26 Q216 16 206 22" fill="none" stroke="#7A5A30" stroke-width="5" stroke-linecap="round"/>
+  <path d="M208 54 Q192 42 184 30 Q178 22 188 18" fill="none" stroke="#7A5A30" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="216" cy="26" rx="16" ry="11" fill="#4A7830"/>
+  <ellipse cx="202" cy="22" rx="14" ry="10" fill="#5A8A38"/>
+  <ellipse cx="188" cy="28" rx="12" ry="9" fill="#4A7830"/>
+  <path d="M218 28 Q220 40 216 52" fill="none" stroke="#8A9A60" stroke-width="1.8" opacity=".9"/>
+  <path d="M210 24 Q212 36 208 48" fill="none" stroke="#8A9A60" stroke-width="1.4" opacity=".8"/>
+  <path d="M200 24 Q198 36 202 50" fill="none" stroke="#8A9A60" stroke-width="1.8" opacity=".9"/>
+  <path d="M186 28 Q184 40 188 52" fill="none" stroke="#8A9A60" stroke-width="1.4" opacity=".8"/>
+  <!-- Antebellum mansion center -->
+  <rect x="70" y="46" width="80" height="36" fill="#F0E8D0"/>
+  <rect x="65" y="42" width="90" height="8" fill="#E8E0C8"/>
+  <!-- Columns -->
+  <rect x="74" y="42" width="5" height="40" fill="#F8F4E8"/>
+  <rect x="84" y="42" width="5" height="40" fill="#F8F4E8"/>
+  <rect x="94" y="42" width="5" height="40" fill="#F8F4E8"/>
+  <rect x="110" y="42" width="5" height="40" fill="#F8F4E8"/>
+  <rect x="120" y="42" width="5" height="40" fill="#F8F4E8"/>
+  <rect x="130" y="42" width="5" height="40" fill="#F8F4E8"/>
+  <!-- Pediment -->
+  <polygon points="65,42 110,28 155,42" fill="#E8E0C8"/>
+  <!-- Windows -->
+  <rect x="80" y="52" width="8" height="10" rx="1" fill="#87CEEB"/>
+  <rect x="96" y="52" width="8" height="10" rx="1" fill="#87CEEB"/>
+  <rect x="112" y="52" width="8" height="10" rx="1" fill="#87CEEB"/>
+  <rect x="128" y="52" width="8" height="10" rx="1" fill="#87CEEB"/>
+  <rect x="100" y="64" width="10" height="18" rx="1" fill="#87CEEB"/>
+  <!-- Street lamp -->
+  <rect x="107" y="60" width="5" height="24" fill="#6A5030"/>
+  <path d="M109 62 Q109 56 100 54" fill="none" stroke="#6A5030" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="98" cy="53" r="4" fill="#F5C842" opacity=".9"/>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">Savannah was the most unanimously celebrated location vote in league history. The house on East Congress Street sat in the middle of one of the city's most reliably chaotic social corridors. Open container laws on the street kept things moving. The trade market opened at 11am and by noon there were four separate trade alerts. Colin Rose, who had been in the league since the founding and had never won, finally took the ring with a dominant team built around a McCaffrey keeper. Norm, in one of his finest regular seasons, made the podium. It was the hottest weekend of the year and nobody complained once.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Her: you're the father.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Can someone grab O'Regan and I an adult capri sun?</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Ryan Carello</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Wake up and come to brunch.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Norm</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2022)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2022 SEASON &#8594;</button>
+          </div>
+        </div>
+        <div id="dpanel-2021" style="padding:26px 30px;display:none">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Nashville</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">TN &nbsp;&middot;&nbsp; Aug 14&ndash;15, 2021</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#87CEEB"/>
+  <circle cx="196" cy="18" r="13" fill="#F5C842"/>
+  <ellipse cx="35" cy="14" rx="22" ry="8" fill="#FFFFFF" opacity=".85"/>
+  <ellipse cx="52" cy="10" rx="16" ry="7" fill="#FFFFFF" opacity=".85"/>
+  <rect x="0" y="80" width="220" height="30" fill="#808080"/>
+  <rect x="0" y="80" width="220" height="3" fill="#A0A0A0"/>
+  <rect x="0"  y="44" width="28" height="36" fill="#C8502A"/>
+  <rect x="26" y="36" width="22" height="44" fill="#D4703A"/>
+  <rect x="46" y="40" width="20" height="40" fill="#C86040"/>
+  <rect x="64" y="26" width="26" height="54" fill="#A8B8C8"/>
+  <rect x="68" y="20" width="8" height="8" fill="#A0B0C0"/>
+  <rect x="80" y="20" width="8" height="8" fill="#A0B0C0"/>
+  <rect x="70" y="14" width="12" height="8" fill="#A8B8C8"/>
+  <rect x="88" y="34" width="22" height="46" fill="#D4703A"/>
+  <rect x="108" y="30" width="24" height="50" fill="#C8502A"/>
+  <rect x="130" y="22" width="28" height="58" fill="#BCA888"/>
+  <polygon points="130,22 144,8 158,22" fill="#A89878"/>
+  <rect x="156" y="36" width="22" height="44" fill="#C8502A"/>
+  <rect x="176" y="40" width="20" height="40" fill="#D4703A"/>
+  <rect x="194" y="44" width="26" height="36" fill="#C8502A"/>
+  <rect x="3"  y="52" width="18" height="6" rx="2" fill="#E8304A"/>
+  <rect x="5"  y="62" width="14" height="5" rx="2" fill="#4050D8"/>
+  <rect x="28" y="44" width="16" height="6" rx="2" fill="#40A840"/>
+  <rect x="28" y="54" width="12" height="5" rx="2" fill="#F5A020"/>
+  <rect x="90" y="42" width="16" height="6" rx="2" fill="#E8304A"/>
+  <rect x="110" y="38" width="14" height="5" rx="2" fill="#4050D8"/>
+  <rect x="158" y="44" width="16" height="6" rx="2" fill="#40A840"/>
+  <rect x="178" y="48" width="14" height="5" rx="2" fill="#E8304A"/>
+  <ellipse cx="50" cy="98" rx="13" ry="14" fill="#5A3010"/>
+  <ellipse cx="50" cy="86" rx="9" ry="10" fill="#5A3010"/>
+  <rect x="48" y="54" width="5" height="32" rx="2" fill="#5A3010"/>
+  <rect x="45" y="50" width="10" height="6" rx="2" fill="#5A3010"/>
+  <circle cx="50" cy="98" r="5" fill="#3A2008"/>
+  <line x1="50" y1="54" x2="50" y2="108" stroke="#D4A020" stroke-width="0.7" opacity=".8"/>
+  <line x1="52" y1="54" x2="52" y2="108" stroke="#D4A020" stroke-width="0.7" opacity=".8"/>
+  <line x1="54" y1="54" x2="54" y2="108" stroke="#D4A020" stroke-width="0.7" opacity=".8"/>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">Nashville was expensive. Bachelorette season had hotel prices up and flight costs followed. O'Regan flew in from Los Angeles at his own expense and did not want to hear about it. Musky missed it entirely for a work conflict in New Hampshire. Carello landed at 5:30. Clark got standby on an earlier flight and was at the house by 10:30am. Shaw ran back the championship in back-to-back fashion. Norm made his first podium in just his second season. The house was on Chesterfield Avenue and the hot chicken was non-negotiable. At some point Norm sent a message that just said 'I was waf my my,,/' and the chat moved on.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Y'all lucky I like you / miss you / am a psychopath about fantasy football.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Lotta dick pics too but those are mostly mine. Mostly.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Barney</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Idk you were behind us, then you weren't, then we got hot chicken sammies.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2021)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2021 SEASON &#8594;</button>
+          </div>
+        </div>
+        <div id="dpanel-2020" style="padding:26px 30px;display:none">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Raleigh</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">NC &nbsp;&middot;&nbsp; Aug 14&ndash;17, 2020</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#7BB8E8"/>
+  <circle cx="22" cy="18" r="13" fill="#F5C842"/>
+  <ellipse cx="150" cy="16" rx="22" ry="8" fill="#FFFFFF" opacity=".85"/>
+  <ellipse cx="170" cy="11" rx="16" ry="7" fill="#FFFFFF" opacity=".85"/>
+  <rect x="0" y="82" width="220" height="28" fill="#5A9A38"/>
+  <rect x="56" y="84" width="108" height="4" fill="#D8D0B8"/>
+  <rect x="50" y="88" width="120" height="4" fill="#C8C0A8"/>
+  <rect x="68" y="52" width="84" height="32" fill="#E8E0C8"/>
+  <rect x="72" y="50" width="8" height="34" fill="#F0E8D0"/>
+  <rect x="83" y="50" width="8" height="34" fill="#F0E8D0"/>
+  <rect x="94" y="50" width="8" height="34" fill="#F0E8D0"/>
+  <rect x="118" y="50" width="8" height="34" fill="#F0E8D0"/>
+  <rect x="129" y="50" width="8" height="34" fill="#F0E8D0"/>
+  <rect x="140" y="50" width="8" height="34" fill="#F0E8D0"/>
+  <polygon points="68,50 110,40 152,50" fill="#E8E0C8"/>
+  <rect x="84" y="34" width="52" height="20" fill="#D8D0B8"/>
+  <ellipse cx="110" cy="34" rx="24" ry="20" fill="#E8E0C8"/>
+  <ellipse cx="110" cy="24" rx="14" ry="16" fill="#D8D0B8"/>
+  <rect x="106" y="8" width="8" height="16" fill="#D8D0B8"/>
+  <ellipse cx="110" cy="8" rx="8" ry="5" fill="#C8C0A8"/>
+  <rect x="110" y="2" width="14" height="9" fill="#B82028"/>
+  <rect x="0"  y="60" width="22" height="22" fill="#D4C4A0"/>
+  <rect x="20" y="52" width="18" height="30" fill="#C8B890"/>
+  <rect x="36" y="56" width="16" height="26" fill="#D4C4A0"/>
+  <rect x="50" y="46" width="18" height="36" fill="#C8B890"/>
+  <rect x="152" y="46" width="18" height="36" fill="#C8B890"/>
+  <rect x="168" y="56" width="16" height="26" fill="#D4C4A0"/>
+  <rect x="182" y="52" width="18" height="30" fill="#C8B890"/>
+  <rect x="198" y="60" width="22" height="22" fill="#D4C4A0"/>
+  <polygon points="0,82 12,54 24,82" fill="#2A5820"/><rect x="10" y="82" width="5" height="10" fill="#6A4020"/>
+  <polygon points="18,82 32,48 46,82" fill="#336030"/><rect x="30" y="82" width="5" height="10" fill="#6A4020"/>
+  <polygon points="174,82 188,48 202,82" fill="#336030"/><rect x="185" y="82" width="5" height="10" fill="#6A4020"/>
+  <polygon points="198,82 210,54 222,82" fill="#2A5820"/>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">Raleigh had won the vote, then COVID hit. Wake County had 1,200 cases in a single week. Macsata pulled out on principle. Pratt's employer required a two-week quarantine for travel. Clark stayed remote. Nine of the twelve went anyway. The draft ran over Zoom and the WiFi held up. O'Regan set up the call and kept it together. Pratt took his first championship remotely, which some felt was appropriate and others felt was not. It was the only year the league held a fully virtual draft format, and the only year the winner wasn't in the room. Barney's TSA story from the airport that morning remains in the chat.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">My dick set off the metal detector. The TSA agent was a chick &mdash; kinda cute too.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Michael Barney</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Well boys, this confirms it — we are the greatest fantasy league there is.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Mike O'Regan</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">I am not opposed to this being the anthem of the weekend.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2020)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2020 SEASON &#8594;</button>
+          </div>
+        </div>
+        <div id="dpanel-2019" style="padding:26px 30px;display:none">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:#1B2A4A;line-height:1">Montreal</div>
+              <div style="font-size:12px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:4px">QC, Canada &nbsp;&middot;&nbsp; Aug 16&ndash;18, 2019</div>
+            </div>
+            <div style="flex-shrink:0;margin-left:16px"><svg width="220" height="110" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="110" rx="8" fill="#87CEEB"/>
+  <circle cx="196" cy="18" r="13" fill="#F5C842"/>
+  <ellipse cx="30" cy="16" rx="22" ry="9" fill="#FFFFFF" opacity=".9"/>
+  <ellipse cx="48" cy="11" rx="16" ry="8" fill="#FFFFFF" opacity=".9"/>
+  <ellipse cx="114" cy="56" rx="50" ry="20" fill="#5A8A3A"/>
+  <rect x="110" y="28" width="8" height="24" fill="#F0F0F0"/>
+  <rect x="100" y="34" width="28" height="7" fill="#F0F0F0"/>
+  <rect x="40" y="52" width="20" height="46" fill="#D4C8A8"/>
+  <rect x="60" y="52" width="20" height="46" fill="#D4C8A8"/>
+  <polygon points="40,52 50,34 60,52" fill="#C8BC9C"/>
+  <polygon points="60,52 70,34 80,52" fill="#C8BC9C"/>
+  <circle cx="60" cy="64" r="7" fill="none" stroke="#A89870" stroke-width="2"/>
+  <circle cx="60" cy="64" r="3" fill="#A89870"/>
+  <path d="M46 98 Q60 88 74 98" fill="none" stroke="#A89870" stroke-width="2.5"/>
+  <rect x="0"  y="60" width="22" height="38" fill="#D4C4A0"/>
+  <rect x="20" y="52" width="20" height="46" fill="#C8B890"/>
+  <rect x="80" y="56" width="20" height="42" fill="#D4C4A0"/>
+  <rect x="98" y="50" width="12" height="48" fill="#C8B890"/>
+  <rect x="128" y="50" width="12" height="48" fill="#C8B890"/>
+  <rect x="138" y="54" width="20" height="44" fill="#D4C4A0"/>
+  <rect x="156" y="52" width="22" height="46" fill="#C8B890"/>
+  <rect x="176" y="58" width="44" height="40" fill="#D4C4A0"/>
+  <rect x="0" y="94" width="220" height="16" fill="#5090C0"/>
+  <path d="M15 100 Q55 96 95 100 Q135 104 175 100 Q195 98 220 100" fill="none" stroke="#6AA8D8" stroke-width="1.5" opacity=".7"/>
+  <text x="186" y="90" font-size="16" fill="#8A6A40" font-family="serif">&#x269C;</text>
+</svg></div>
+          </div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.75;margin-bottom:18px">The inaugural season. The constitution was drafted at O'Regan's apartment in Worcester. Montreal was the first city, and the only international trip in league history. Carello and O'Regan drove up and picked Logan McConnell up at the airport. The CT crew arrived around 5. The draft ran on a Google Sheets board, the only year without a proper app. Trevor bought a bottle at the Jet Club and called it a commissioner's gift. Belleville's dog meat casserole quote entered permanent league lore that weekend and has never been fully explained. Egger took the ring. The Committitee was born.</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
+          <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">At the jet club&hellip; just bought a $200 bottle, come thru. Commissioner gift.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Just look for the Falcon Heavy.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Logan McConnell</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">&#128079;&#128079;&#128079;&#128079; TEAM BOOT</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Drew Egger</div></div>
+          <div style="margin-top:16px">
+            <button onclick="showPage('seasons');switchSeason(2019)" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:#1B2A4A;color:#fff;border:none;border-radius:5px;padding:9px 18px;cursor:pointer">VIEW 2019 SEASON &#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- LEAGUE HISTORY -->
+<div class="page" id="page-history">
+  <div class="page-inner">
+    <div class="sh">League History</div>
+
+    <div class="card" style="margin-bottom:28px;padding:28px 30px;border-top:4px solid #B8860B">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#1B2A4A;margin-bottom:14px">The Founding</div>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The Committitee was founded in the spring of 2019 by Trevor Shaw, who had been quietly lobbying his social circle for years to form a league worth taking seriously. The founding meeting was held on April 6th at Mike O&rsquo;Regan&rsquo;s apartment at 10 Crillon Road in Worcester, Massachusetts &mdash; a compromise from Trevor&rsquo;s original plan to host it in Nashua. The constitution was drafted primarily by Shaw and O&rsquo;Regan, the latter of whom, in Trevor&rsquo;s words, &ldquo;covered half the document alone.&rdquo;</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The original roster stood at eleven owners before Ryan Belleville was confirmed as the twelfth. Carello proposed Vegas for the draft within the first week of the chat. O&rsquo;Regan countered with Dave &amp; Busters in Providence. Macsata suggested Montreal. Montreal won. The league&rsquo;s identity as a traveling outfit was set before the first pick was ever made.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85">The inaugural season launched in August 2019, with a Google Sheets draft board, a Yahoo platform debate that nearly derailed the whole thing, and a $200 bottle of champagne that Trevor called a commissioner&rsquo;s gift at a Montreal club. Drew Egger won the first championship. The Committitee was born.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:28px;padding:28px 30px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#1B2A4A;margin-bottom:14px">The Traveling League</div>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">From the beginning, the annual draft trip was the structural backbone of the league. Every year, owners convene in a new city for a weekend built around the draft &mdash; a tradition that has taken the league to Montreal, Raleigh, Nashville, Savannah, Pittsburgh, Milwaukee, and Brownfield, Maine. The trip is voted on by owners each offseason, with proposals, debates, and formal votes that often generate more chat activity than the actual season.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The COVID year of 2020 was the only season the format was truly tested. Macsata cited case counts in Wake County and pulled out. Pratt&rsquo;s employer required a two-week quarantine for travel. Clark stayed home. Nine owners made the trip to Raleigh anyway, with the remote contingent joining by Zoom. Pratt, drafting from his laptop in Massachusetts, won the championship. Some felt this was appropriate. Others did not.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85">The draft trip is the event that keeps the league honest. It forces attendance, creates memories, and generates the kind of shared history that makes the group chat worth reading. Through seven years and seven cities, not a single champion has repeated.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:28px;padding:28px 30px;border-top:4px solid #1B2A4A">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#1B2A4A;margin-bottom:14px">The Franchise Era</div>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">For the first four years of the league, team names were entirely self-directed. Owners named their teams whatever they wanted, whenever they wanted, and changed them as often as the mood struck. The results were varied: <em>I&rsquo;m Shit Outta Luck</em>, <em>Tank for Tua</em>, <em>My Ball Zach Ertz</em>, <em>The 21 Beekeepers</em>, <em>Collusion</em>, <em>RENT FREE</em>. Barney alone went through four distinct identities across the first four seasons. The chat was colorful. The records were a mess.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">In June 2023, Commissioner Shaw issued a directive: <em>&ldquo;I think everyone should follow a city mascot team name format. Gives it more of a franchise feel.&rdquo;</em> The proposal passed. Owners were required to adopt a permanent [City] [Nickname] identity going forward. The idea was to treat the league as a proper franchise operation &mdash; not just a rotating collection of inside jokes, but a set of stable organizations with real geographic homes and institutional history.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The transition was not entirely clean. Egger&rsquo;s announcement &mdash; <em>&ldquo;I have rebranded&hellip; THE WALRUSES COMING FOR THAT ASS&rdquo;</em> &mdash; set the tone. Norm had to be personally reminded by the commissioner to update his name. Barney, true to form, rebranded three more times after the rule was introduced. But the framework held, and by 2024 the league had twelve stable franchise identities with real locations, nicknames, and a growing sense of institutional permanence.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85">The franchise model also marked the moment the league fully committed to its own mythology. Team histories, travel records, championship lineages &mdash; all of it becomes more meaningful when the names stay consistent. The Committitee in 2025 bears little resemblance to the eleven-man proto-league that gathered in Worcester in 2019, but the constitution, the draft trip, and the group chat form an unbroken thread.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:28px;padding:28px 30px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#1B2A4A;margin-bottom:14px">Ownership Changes</div>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The league has had fourteen unique owners across its history, with the core group of ten remaining intact since 2021. Ryan Belleville, one of the original eleven, departed after the inaugural season. Norm Harris joined in 2020, the same year Belleville left, and has been a fixture ever since &mdash; finishing runner-up in his third season and sweeping the in-season, points, and all-play championships in 2025.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85">Matt Pratt was the league&rsquo;s most colorful periodic presence &mdash; a genuine fantasy mind who won the 2020 championship remotely, built legitimate contenders, and was immortalized in the chat when his wife Jaclyn was overheard commenting on his reaction to a playoff loss. He departed after the 2023 season. Josh Levene joined in 2024, inherited the franchise, and went 9-5 in his first season &mdash; a strong debut that fell short of the playoffs. Logan McConnell, who had been quietly building toward a title for six seasons, won the 2024 championship. Levene has yet to reach the final.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:28px;padding:28px 30px;border-top:4px solid #B8860B">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#1B2A4A;margin-bottom:14px">How the League Works</div>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The Committitee runs on a heavily customized scoring system built at the founding meeting in Worcester and refined through annual votes ever since. The active roster is 1 QB, 3 WR, 2 RB, 1 TE, 1 W/R/T flex, 1 K, and 1 DEF, with seven bench spots and one IR slot. The league moved from Yahoo Fantasy Football to Sleeper.com ahead of the 2023 season. Entry fees are $375 per team, with a $2,400 first-place prize, $900 for second, and $150 for third. A $10 weekly low-score fee keeps every game meaningful through December.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The scoring system departs from standard settings in meaningful ways. Passing first downs are worth a quarter-point, interceptions cost two points instead of one, and rushing and receiving first downs each score bonus points. Defensive scoring uses a 12-point baseline regardless of points allowed, with a half-point deduction per point surrendered &mdash; making a dominant defensive performance genuinely valuable rather than a flat bonus. A defense that allows zero points and fewer than 100 yards earns a retroactive ten-point bonus. A kicker who breaks the all-time field goal distance record earns ten bonus points. A safety is worth four points. The result is a scoring environment that rewards depth at every position and punishes lazy roster management.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The keeper system is the strategic core of the league. Each owner receives one A-tier keeper and one B-tier keeper per season, with no hard cap on total keepers &mdash; additional keeper rights can be acquired through trades. A keeper costs one round earlier than where the player was drafted the previous year. A B-tier keeper can only be used in the eighth round or later; an A-tier keeper can be used in any round. A first-round keeper from the prior year requires both an A and B keeper combined with a first-round pick. Players drafted in the first or second round can only be kept one consecutive season; third-round and later picks can be kept two consecutive seasons. A red-shirt rookie &mdash; a player rostered before Week 1 but never started &mdash; can be kept the following year without using a keeper pick at all, then follows normal escalation from year three onward.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85;margin-bottom:14px">The draft order is determined by a 45-cup beer pong lottery, with 25 labeled cups and 20 blanks assembled in random order. Cups are allocated based on prior-year results: playoff teams receive 4% odds each, non-playoff teams start at 8%, and consolation bracket winners earn bonus odds ranging from 4% to 8%. The winner of the Sacko Bowl &mdash; last place &mdash; earns additional lottery odds, a small consolation for the obligation to organize the next year&rsquo;s lodging and maintain the live draft board during the draft. Failure to wear your official team jersey to the draft costs you your sixth and seventh round picks to the end of those rounds. Attempting to draft an already-drafted player with conviction costs you your spot in that round entirely &mdash; a rule named the Colin Rose Draft Penalty.</p>
+      <p style="font-size:13px;color:#3A3A3C;line-height:1.85">The six-team playoffs run weeks 15&ndash;17, mirroring the NFL conference playoff structure. Seeds 1 and 2 receive byes; the bracket reseeds each round so the top remaining seed always faces the lowest. The non-playoff field runs its own consolation bracket simultaneously, with named bowl games at every level &mdash; the Mediocre Bowl, the Pity Bowl, the Lottery Odds Bowl, the Peaked in High School Bowl, and the Sacko Bowl. The trade deadline falls at the end of Week 9. Every draft is a negotiation between what a team needs now and what it wants to preserve for next year. Seven seasons in, no single approach has dominated. Seven champions, seven different owners.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:28px;padding:28px 30px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#1B2A4A;margin-bottom:14px">Championship History</div>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#1B2A4A;color:#DAA520">
+              <th style="padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-weight:700">Year</th>
+              <th style="padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-weight:700">City</th>
+              <th style="padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-weight:700">Champion</th>
+              <th style="padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-weight:700">Runner-Up</th>
+              <th style="padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-weight:700">Third</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#FFF8E1;border-bottom:1px solid #D1D1D6">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2025</td>
+              <td style="padding:9px 12px;color:#8E8E93">Brownfield, ME</td>
+              <td style="padding:9px 12px;font-weight:700">Ryan Carello</td>
+              <td style="padding:9px 12px">Norm Harris</td>
+              <td style="padding:9px 12px;color:#8E8E93">Adam Macsata</td>
+            </tr>
+            <tr style="border-bottom:1px solid #D1D1D6">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2024</td>
+              <td style="padding:9px 12px;color:#8E8E93">Milwaukee, WI</td>
+              <td style="padding:9px 12px;font-weight:700">Logan McConnell</td>
+              <td style="padding:9px 12px">Drew Egger</td>
+              <td style="padding:9px 12px;color:#8E8E93">Colin Rose</td>
+            </tr>
+            <tr style="background:#F5F5F7;border-bottom:1px solid #D1D1D6">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2023</td>
+              <td style="padding:9px 12px;color:#8E8E93">Pittsburgh, PA</td>
+              <td style="padding:9px 12px;font-weight:700">Chris Clark</td>
+              <td style="padding:9px 12px">Trevor Shaw</td>
+              <td style="padding:9px 12px;color:#8E8E93">Mike O&rsquo;Regan</td>
+            </tr>
+            <tr style="border-bottom:1px solid #D1D1D6">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2022</td>
+              <td style="padding:9px 12px;color:#8E8E93">Savannah, GA</td>
+              <td style="padding:9px 12px;font-weight:700">Colin Rose</td>
+              <td style="padding:9px 12px">Adam Macsata</td>
+              <td style="padding:9px 12px;color:#8E8E93">Norm Harris</td>
+            </tr>
+            <tr style="background:#F5F5F7;border-bottom:1px solid #D1D1D6">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2021</td>
+              <td style="padding:9px 12px;color:#8E8E93">Nashville, TN</td>
+              <td style="padding:9px 12px;font-weight:700">Trevor Shaw</td>
+              <td style="padding:9px 12px">Ryan Carello</td>
+              <td style="padding:9px 12px;color:#8E8E93">Adam Macsata</td>
+            </tr>
+            <tr style="border-bottom:1px solid #D1D1D6">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2020</td>
+              <td style="padding:9px 12px;color:#8E8E93">Raleigh, NC</td>
+              <td style="padding:9px 12px;font-weight:700">Matt Pratt</td>
+              <td style="padding:9px 12px">Ryan Carello</td>
+              <td style="padding:9px 12px;color:#8E8E93">Mike O&rsquo;Regan</td>
+            </tr>
+            <tr style="background:#F5F5F7">
+              <td style="padding:9px 12px;font-weight:700;color:#B8860B">2019</td>
+              <td style="padding:9px 12px;color:#8E8E93">Montreal, QC</td>
+              <td style="padding:9px 12px;font-weight:700">Drew Egger</td>
+              <td style="padding:9px 12px">Michael Barney</td>
+              <td style="padding:9px 12px;color:#8E8E93">Trevor Shaw</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- IN MEMORIAM -->
+<div class="page" id="page-memoriam">
+  <div class="page-inner">
+    <div style="text-align:center;padding:28px 0 24px;border-bottom:1px solid #D1D1D6;margin-bottom:26px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:8px;color:#48484A">IN MEMORIAM</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:5px;color:#8E8E93;text-transform:uppercase;margin-top:5px">Former Owners of The Committitee &middot; May They Draft Again Someday</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #D1D1D6;border-top:4px solid #48484A;border-radius:8px;padding:20px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:#48484A;margin-bottom:2px">Matthew Pratt</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:#8E8E93;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px">Owner 2019&ndash;2023</div>
+        <div style="font-size:12px;color:#8E8E93;font-style:italic;margin-bottom:12px">Franchise now: Caguas Cockfighters (Josh Levene)</div>
+        <div style="font-size:13px;color:#3A3A3C;line-height:1.6;margin-bottom:14px">A founding member from the inaugural 2019 draft weekend in Worcester. Pratt was a legitimate fantasy mind &mdash; savvy enough to win trades against Barney at full strength. Known for his gambling instincts, golf game, and wife Jaclyn who had strong opinions about his emotional reactions to playoff losses. His 30-leg parlay philosophy made him one of the more entertaining presences in the chat. Departed after the 2023 season.</div>
+        <div style="padding:10px 14px;background:#EBEBF0;border-left:3px solid #D1D1D6;border-radius:0 4px 4px 0;font-size:12px;color:#8E8E93;font-style:italic;line-height:1.5">&ldquo;Oh my God it&rsquo;s fucking crying again.&rdquo; &mdash; Jaclyn Pratt, reportedly, after any fantasy playoff loss</div>
+      </div>
+      <div style="background:#fff;border:1px solid #D1D1D6;border-top:4px solid #48484A;border-radius:8px;padding:20px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:#48484A;margin-bottom:2px">Ryan Belleville</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:#8E8E93;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px">Owner 2019&ndash;2020</div>
+        <div style="font-size:12px;color:#8E8E93;font-style:italic;margin-bottom:12px">Franchise now: North Reading Nor&rsquo;Easters (Norm Harris)</div>
+        <div style="font-size:13px;color:#3A3A3C;line-height:1.6;margin-bottom:14px">An original owner who helped build the league from the ground up at the inaugural meeting at O&rsquo;Regan&rsquo;s in Worcester. Present for the first draft, the first season, and the early chaos of a new keeper league finding its identity. Part of the crew that drove up through Manchester to Montreal for Year 1. His departure created the vacancy Norm stepped into.</div>
+        <div style="padding:10px 14px;background:#EBEBF0;border-left:3px solid #D1D1D6;border-radius:0 4px 4px 0;font-size:12px;color:#8E8E93;font-style:italic;line-height:1.5">&ldquo;Everyone is healthy on my team and a dog meat casserole would score more points than any of my players.&rdquo; &mdash; R. Belleville, Week 2, 2019</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div id="modal-logo-wrap" style="flex-shrink:0;width:64px;height:64px;border-radius:8px;overflow:hidden;background:#F5F5F7;border:1px solid #D1D1D6;display:flex;align-items:center;justify-content:center"><img id="modal-logo" src="" alt="" style="width:100%;height:100%;object-fit:contain;display:none"></div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;line-height:1" id="modal-team-name"></div>
+          <div style="font-size:11px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:3px" id="modal-owner-line"></div>
+        </div>
+      </div>
+      <button class="modal-close" id="modal-close-btn">&#10005;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+var teams=[{id:'cockfighters',logo:'https://sleepercdn.com/uploads/7b83b81746ddfb6f7e338631af804dab.jpg',name:'Caguas Cockfighters',owner:'Josh Levene',nickname:"Fourteen Beers at Chili's",emoji:'\uD83D\uDC13',colors:['#007A3D','#FFD100'],colorNames:["Caguas Green","Medalla Gold"],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Capital Division',rank:10,trend:0,bio:"Josh Levene walked into an established franchise in 2024, introduced himself as Fourteen Beers at Chili's, went 9-5 in his debut season, made the playoffs, and lost in the first round. In 2025 he went 4-10, which he has not fully explained. The Cockfighters carry Pratt-era infrastructure, a growing familiarity with the keeper system, and an owner who is still figuring out when to panic on the waiver wire.",allTimeRecord:'13-15',allTimePF:3300,allTimePA:3583,draftMiles:1926,accolades:['Best Year-1 Performance','Most Dramatic Sophomore Slump (4-10)'],rebrandHistory:[{name:'Caguas Cockfighters',years:'2024-Present',current:true}]},
+  {id:'hecklers',logo:'https://sleepercdn.com/uploads/c68e16bc87e5b34205e95792c67331e3.jpg',name:'Hartford Hecklers',owner:'Colin Rose',nickname:'King Poo',emoji:'\uD83D\uDDE3\uFE0F',colors:['#1A2848','#A8B4C8'],colorNames:['Navy','Silver'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Constitution Division',rank:6,trend:0,bio:"Colin Rose won his ring in 2022 and has been reminding the chat about it ever since. Methodical, opportunistic, and utterly insufferable to play against. Stockpiles receivers, pivots ruthlessly, and finished third in 2024 to prove the Hecklers are still dangerous. Known as King Poo. Etymology still disputed.",allTimeRecord:'45-51',allTimePF:11702,allTimePA:12004,draftMiles:7596,accolades:['Champion 2022','Runner-Up 2023','Third Place 2024'],rebrandHistory:[{name:'The Hartford Hecklers',years:'2023-Present',current:true}]},
+  {id:'muskrats',logo:'https://sleepercdn.com/avatars/b8c1349792fdad06d5ac8a450d2169ca',name:'Middlesex Muskrats',owner:'Adam Macsata',nickname:'Musky',emoji:'\uD83D\uDC2D',colors:['#C41428','#1A4F8C'],colorNames:['Red','Royal Blue'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'New England Division',rank:3,trend:0,bio:"The thoughtful one. Musky brings elbow-patch energy to a group chat that largely does not want it, and the league is better for it. Executed the best documented tank job in league history, then finished second in all-play in 2022. Never won a championship. Has more runner-up and third place finishes combined than anyone. The rebuild, as always, is nearly complete.",allTimeRecord:'46-50',allTimePF:11817,allTimePA:12002,draftMiles:3476,accolades:['Runner-Up 2022','Third Place x2','Best Tank Job in League History'],rebrandHistory:[{name:'Middlesex Muskrats',years:'2023-Present',current:true}]},
+  {id:'moose',logo:'https://sleepercdn.com/uploads/11fe88966c2423e6befcec171691cf18.jpg',name:'Milford Moose',owner:'Matthew Lesonsky',nickname:'Sonsky',emoji:'\uD83E\uDDCC',colors:['#006847','#C8A200'],colorNames:['Milford Green','Gold'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'New England Division',rank:7,trend:0,bio:"Sonsky operates quietly. The Moose are perpetually among the top scorers — more top-five points finishes than almost anyone — with a special gift for devastating late-season surges that somehow never translate to a ring. As emotionally expressive as a monkfish. His buffalo chicken dip at championship Sunday remains the gold standard of Committitee hospitality. The only original owner who has never made the podium — a fact he has not acknowledged publicly.",allTimeRecord:'48-48',allTimePF:12433,allTimePA:12164,draftMiles:8136,accolades:['Top 5 Points For x4','Most Clutch November Wins'],rebrandHistory:[{name:'Milford Cougars',years:'2023',current:false},{name:'Milford Moose',years:'2024-Present',current:true}]},
+  {id:'nighthawks',logo:'https://sleepercdn.com/uploads/fc85e9b02f6054f4a9589e42850904d0.jpg',name:'North Attleboro Nighthawks',owner:'Ryan Carello',nickname:'Rello / Undisputed GOAT',emoji:'\uD83C\uDF03',colors:['#2A2A2A','#F0F020'],colorNames:['Charcoal','Electric Yellow'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Capital Division',rank:1,trend:0,bio:"The 2025 champion and self-declared Undisputed GOAT. Carello spent six seasons as the league's most enthusiastic runner-up before finally delivering in Maine, changing his display name immediately upon winning. Has lobbied for Vegas since the founding meeting in 2019. Has lived in Boston, Minneapolis, and Boston again. His team name changes cities more often than he does.",allTimeRecord:'57-39',allTimePF:12487,allTimePA:11943,draftMiles:8986,accolades:['Champion 2025','Runner-Up x2','Proposed Vegas Draft (2019)','Undisputed GOAT (Self-Declared)'],rebrandHistory:[{name:'Needham Nighthawks',years:'2023',current:false},{name:'East Boston Nighthawks',years:'2024',current:false},{name:'North Attleboro Nighthawks',years:'2025-Present',current:true}]},
+  {id:'noreasters',logo:'https://sleepercdn.com/uploads/c34383a2b4623c23c3b837d6d4fbf3fc',name:"North Reading Nor'Easters",owner:'Norm Harris',nickname:'Norm',emoji:'\uD83C\uDF28\uFE0F',colors:['#2C3E50','#ECF0F1'],colorNames:['Blizzard Navy','Storm White'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'New England Division',rank:2,trend:0,bio:"The most dominant regular season manager in league history by points, winning percentage, and sheer consistency — and somehow still ringless. Three-time 1-seed. Runner-up in 2022. Won every in-season award in 2025, then watched Carello celebrate. His Delta SkyMiles takes are sharp. His patience for roster criticism: zero. Missed the 2025 draft because his daughter was born that weekend, which everyone agreed was the one acceptable excuse.",allTimeRecord:'58-25',allTimePF:10815,allTimePA:9875,draftMiles:7572,accolades:['Runner-Up 2025','Third Place 2022','1 Seed x2','Highest PF Season 2025'],rebrandHistory:[{name:"North Reading Nor'Easters",years:'2023-Present',current:true}]},
+  {id:'crusaders',logo:'https://sleepercdn.com/uploads/e90e1477e2346472a79b27704017c58d.jpg',name:'Queen City Quails',owner:'Trevor Shaw',nickname:'The Commississioner',emoji:'\uD83D\uDC51',colors:['#6A0DAD','#C9A84C'],colorNames:['Royal Purple','Commissioner Gold'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Capital Division',rank:5,trend:0,bio:"The man who built the machine. Trevor Shaw founded the league, wrote the constitution with O'Regan, and has served as commissioner since day one. Won the 2021 championship and has been chasing a second ring ever since. Finished third in 2023. Now operating as the Queen City Quails out of Manchester, NH. His trash talk is world class. His acceptance of criticism is not.",allTimeRecord:'44-52',allTimePF:10556,allTimePA:10385,draftMiles:8090,accolades:['Champion 2021','Third Place x2','Commississioner for Life','League Founder'],rebrandHistory:[{name:'Nashua Crusaders',years:'2023-2025',current:false},{name:'Queen City Quails',years:'2026-Present',current:true}]},
+  {id:'stars',logo:'https://sleepercdn.com/uploads/b9444a4644a8755c7162500bbd7e9c0f.jpg',name:'Santa Monica Stars',owner:"Mike O'Regan",nickname:"O'Reegz",emoji:'\u2B50',colors:['#12133A','#E8732A'],colorNames:['Navy','Sunset Orange'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Constitution Division',rank:8,trend:0,bio:"The constitutional scholar. O'Regan co-wrote the league rules, designed the lottery system, and will politely explain why your interpretation of both is incorrect. Has flown from Los Angeles to every draft since 2022 — the longest commute in league history at over 24,000 miles traveled. Football IQ: encyclopedic. Rings: zero. The gap between the two is the defining tension of this franchise.",allTimeRecord:'45-51',allTimePF:12077,allTimePA:12093,draftMiles:20798,accolades:['Third Place x2','Longest Distance to Draft','League Constitution Author','Lottery System Designer'],rebrandHistory:[{name:'Santa Monica Stars',years:'2023-Present',current:true}]},
+  {id:'snakeeyes',logo:'https://sleepercdn.com/uploads/7427cab5452b2973c83be2a8e38610db.jpg',name:'Shangri-La Snake Eyes',owner:'Michael Barney',nickname:'Barney',emoji:'\uD83C\uDFB2',colors:['#0055EE','#F0C020'],colorNames:['Royal Blue','Gold'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Constitution Division',rank:12,trend:0,bio:"The Jekyll-and-Hyde GM. Barney can construct a trade that looks like Theo Epstein's finest work, then burn every asset acquired on players with pre-existing injuries. Has rebranded four times in four years and counting — War-Pigs, Wareham Thieves, Onset Bay Hammerheads, and now Shangri-La Snake Eyes. His weekly power rankings are required reading. His roster management remains deeply optional.",allTimeRecord:'41-55',allTimePF:10425,allTimePA:10648,draftMiles:8130,accolades:['Runner-Up 2019','Most Creative Power Rankings','Most Jerseys Made (4)','Wareham Thieves Alumni'],rebrandHistory:[{name:'Rhode Island War-Pigs',years:'2023',current:false},{name:'Wareham Thieves',years:'2024',current:false},{name:'Onset Bay Hammerheads',years:'2025',current:false},{name:'Shangri-La Snake Eyes',years:'2026-Present',current:true}]},
+  {id:'aussies',logo:'https://sleepercdn.com/uploads/123ba93ac109ba0dc30d24d2c0253b5b.jpg',name:'Starbase Aussies',owner:'Logan McConnell',nickname:'Space Pirate',emoji:'\uD83D\uDE80',colors:['#0D0D0D','#C0A020'],colorNames:['Space Black','Launch Gold'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Capital Division',rank:11,trend:0,bio:"Logan McConnell won the 2024 championship in Milwaukee in his sixth season, which nobody fully predicted. Operates out of Brownsville, TX — formerly Cape Canaveral, within earshot of actual rocket launches — and has logged the second-most draft travel miles in league history. Brings a calm, long-term perspective to roster building. Doesn't say much in the chat. When he does, it tends to matter.",allTimeRecord:'42-54',allTimePF:11441,allTimePA:12136,draftMiles:13082,accolades:['Champion 2024','Most Patient Rebuild','Least Tweets Sent Per Ring Won'],rebrandHistory:[{name:'Merritt Island Aussies',years:'2023',current:false},{name:'Starbase Aussies',years:'2024-Present',current:true}]},
+  {id:'sauce',logo:'https://sleepercdn.com/uploads/5f07d51979f935ced2fa4fdeef0e67f9.jpg',name:'Stratford Sauce',owner:'Chris Clark',nickname:'Sauce',emoji:'\uD83C\uDF56',colors:['#C41E3A','#003580'],colorNames:['Sauce Red','Stratford Blue'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'New England Division',rank:4,trend:0,bio:"One ring, earned in Pittsburgh by trading practically everything he owned and going all-in on the 2023 season. The league's best finder of no-name wideouts before they pop. Built the Stratford Sauce into a franchise identity out of Hartford, CT. Proposed Gulfport, championed it through a skeptical vote, and will be the first person to arrive.",allTimeRecord:'50-46',allTimePF:12226,allTimePA:11845,draftMiles:4988,accolades:['Champion 2023','Best Undrafted WR Finds'],rebrandHistory:[{name:'Stratford Sauce',years:'2023-Present',current:true}]},
+  {id:'walruses',logo:'https://sleepercdn.com/uploads/36a48cdfc71b1d19ad675d894930cf25.jpg',name:'Waltham Walruses',owner:'Drew Egger',nickname:'Egger',emoji:'\uD83E\uDDAD',colors:['#4A90D9','#FFFFFF'],colorNames:['Charles River Blue','Waltham White'],record:'0-0',wins:0,losses:0,pf:0,pa:0,streak:'-',division:'Constitution Division',rank:9,trend:0,bio:"The model franchise. Drew Egger is widely regarded as the best drafter in the league — clinical, well-researched, never panics. Won the inaugural 2019 title and ran the 2024 field to a runner-up finish. Also personally arranged every baseball game at draft weekend. Carello has not forgiven him for Milwaukee.",allTimeRecord:'49-47',allTimePF:11852,allTimePA:11597,draftMiles:7950,accolades:['Champion 2019','Runner-Up 2024','1st Seed x2'],rebrandHistory:[{name:'Waltham Walruses',years:'2023-Present',current:true}]}];
+
+
+
+function getTeam(id){for(var i=0;i<teams.length;i++)if(teams[i].id===id)return teams[i];return null;}
+function dot(c){return '<span style="width:9px;height:9px;border-radius:50%;background:'+c+';display:inline-block;flex-shrink:0"></span>';}
+function trend(t){if(t>0)return '<span style="color:#34C759;font-weight:700">&#9650;'+t+'</span>';if(t<0)return '<span style="color:#FF3B30;font-weight:700">&#9660;'+Math.abs(t)+'</span>';return '<span style="color:#8E8E93">&#8212;</span>';}
+
+function renderHomeStandings(){
+  var s=teams.slice().sort(function(a,b){return b.wins-a.wins||b.pf-a.pf;});
+  var h='';
+  for(var i=0;i<Math.min(6,s.length);i++){
+    var t=s[i];
+    h+='<tr onclick="openModal(\''+t.id+'\')">';
+    h+='<td><span style="display:flex;align-items:center;gap:8px">'+dot(t.colors[0])+t.name+'</span></td>';
+    h+='<td style="font-weight:700">'+t.wins+'</td><td style="color:#8E8E93">'+t.losses+'</td><td>'+t.pf+'</td>';
+    h+='<td><span>'+t.streak+'</span></td></tr>';
+  }
+  document.getElementById('home-standings').innerHTML=h;
+}
+
+function renderHomePR(){
+  var s=teams.slice().sort(function(a,b){return a.rank-b.rank;});
+  var h='';
+  for(var i=0;i<5;i++){
+    var t=s[i];
+    h+='<div class="pr-item" onclick="openModal(\''+t.id+'\')">';
+    h+='<div class="pr-rank'+(t.rank<=3?' top3':'')+'">'+t.rank+'</div>';
+    h+='<div><div style="font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:700">'+t.name+'</div><div style="font-size:11px;color:#8E8E93">'+t.owner+'</div></div>';
+    h+='<div style="text-align:center;font-size:14px;font-weight:700">'+t.record+'</div><div></div>';
+    h+='<div style="text-align:right">'+trend(t.trend)+'</div></div>';
+  }
+  document.getElementById('home-pr').innerHTML=h;
+}
+
+function renderHomeMatchups(){
+  document.getElementById('home-matchups').innerHTML='<div style="text-align:center;padding:30px;color:#8E8E93;font-size:13px">Season has concluded. Check Season History for 2025 results.</div>';
+}
+
+function renderTeams(){
+  var h='';
+  for(var i=0;i<teams.length;i++){
+    var t=teams[i];
+    var rings=t.accolades.filter(function(a){return a.indexOf('Champion')!==-1&&a.indexOf('Runner')===-1&&a.indexOf('Vice')===-1;}).length;
+    h+='<div class="team-card" onclick="openModal(\''+t.id+'\')"><div style="height:5px;background:linear-gradient(to right,'+t.colors.join(',')+')">';
+    h+='</div><div style="padding:15px;position:relative">';
+    if(rings>0)h+='<span style="position:absolute;top:12px;right:12px;background:#FFF8E1;border:1px solid #E6D48A;color:#B8860B;font-family:Barlow Condensed,sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase">Champion</span>';
+    h+='<div style="width:52px;height:52px;border-radius:7px;overflow:hidden;background:#F5F5F7;border:1px solid #D1D1D6;margin-bottom:8px;display:flex;align-items:center;justify-content:center">'+(t.logo?'<img src="'+t.logo+'" alt="" style="width:100%;height:100%;object-fit:contain">':'<span style="font-size:24px">'+t.emoji+'</span>')+'</div>';
+    h+='<div style="font-family:Bebas Neue,sans-serif;font-size:17px;letter-spacing:2px;color:#1B2A4A">'+t.name+'</div>';
+    h+='<div style="font-size:10px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">GM: '+t.owner+'</div>';
+    h+='<div style="font-size:11px;color:#3A3A3C;line-height:1.5;margin-bottom:11px;font-style:italic">'+t.bio.substring(0,110)+'...</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding-top:10px;border-top:1px solid #D1D1D6">';
+    h+='<div><div style="font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:700;color:#1B2A4A">'+t.allTimeRecord+'</div><div style="font-size:9px;color:#8E8E93;letter-spacing:1px;text-transform:uppercase">All-Time</div></div>';
+    h+='<div><div style="font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:700;color:#1B2A4A">'+t.allTimePF.toLocaleString()+'</div><div style="font-size:9px;color:#8E8E93;letter-spacing:1px;text-transform:uppercase">Lifetime PF</div></div>';
+    h+='<div><div style="font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:700;color:#1B2A4A">'+rings+'</div><div style="font-size:9px;color:#8E8E93;letter-spacing:1px;text-transform:uppercase">Rings</div></div>';
+    
+    h+='</div></div></div>';
+  }
+  document.getElementById('teams-grid').innerHTML=h;
+}
+
+function renderRankings(){
+  var s=teams.slice().sort(function(a,b){return a.rank-b.rank;});
+  var h='';
+  for(var i=0;i<s.length;i++){
+    var t=s[i];
+    h+='<div class="pr-item" onclick="openModal(\''+t.id+'\')">';
+    h+='<div class="pr-rank'+(t.rank<=3?' top3':'')+'">'+t.rank+'</div>';
+    h+='<div><div style="font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:700">'+t.name+'</div><div style="font-size:11px;color:#8E8E93">'+t.owner+' &middot; '+t.division+'</div></div>';
+    h+='<div style="text-align:center;font-size:14px;font-weight:700">'+t.record+'</div>';
+    h+='<div style="text-align:center;font-size:12px;color:#8E8E93">'+t.allTimePF.toLocaleString()+' PF</div>';
+    h+='<div style="text-align:right">'+trend(t.trend)+'</div></div>';
+  }
+  document.getElementById('rankings-list').innerHTML=h;
+}
+
+
+function openModal(id){
+  var t=getTeam(id);if(!t)return;
+  document.getElementById('modal-team-name').textContent=t.name;
+  document.getElementById('modal-team-name').style.color=t.colors[0];
+  document.getElementById('modal-owner-line').textContent='GM: '+t.owner;
+  var logoEl=document.getElementById('modal-logo');
+  if(t.logo){logoEl.src=t.logo;logoEl.style.display='block';}else{logoEl.style.display='none';}
+  var h='<div style="font-size:13px;line-height:1.7;color:#3A3A3C;margin-bottom:16px;border-left:3px solid #B8860B;padding-left:13px">'+t.bio+'</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px;margin-bottom:16px">';
+  [['All-Time Record',t.allTimeRecord,t.colors[0]],['Lifetime PF',t.allTimePF.toLocaleString(),t.colors[0]],['Lifetime PA',t.allTimePA.toLocaleString(),'#8E8E93'],['Draft Miles',t.draftMiles?t.draftMiles.toLocaleString():'---','#B8860B']].forEach(function(s){
+    h+='<div style="background:#F5F5F7;padding:11px;text-align:center;border-radius:6px"><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:'+s[2]+';line-height:1">'+s[1]+'</div><div style="font-size:9px;color:#8E8E93;letter-spacing:2px;text-transform:uppercase;margin-top:3px">'+s[0]+'</div></div>';
+  });
+  h+='</div>';
+  if(t.rebrandHistory.length>0){
+    h+='<div style="margin-bottom:14px"><div style="font-size:10px;letter-spacing:3px;color:#8E8E93;text-transform:uppercase;margin-bottom:7px">Franchise History</div><div style="display:flex;align-items:center;flex-wrap:wrap;gap:5px">';
+    t.rebrandHistory.forEach(function(era,i){
+      h+='<div class="rebrand-era'+(era.current?' current':'')+'"><div class="rebrand-era-name">'+era.name+'</div><div class="rebrand-era-years">'+era.years+'</div></div>';
+      if(i<t.rebrandHistory.length-1)h+='<span style="color:#B8860B;font-size:15px;padding:0 3px">\u2192</span>';
+    });
+    h+='</div></div>';
+  }
+  h+='<div style="display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap">';
+  t.colors.forEach(function(c,i){h+='<span style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:18px;border-radius:50%;background:'+c+';border:1px solid #D1D1D6;display:inline-block"></span><span style="font-size:10px;color:#8E8E93;letter-spacing:1px;text-transform:uppercase">'+t.colorNames[i]+'</span></span>';});
+  h+='</div><div>';
+  t.accolades.forEach(function(a){h+='<span style="display:inline-block;background:#FFF8E1;border:1px solid #E6D48A;color:#B8860B;font-family:Barlow Condensed,sans-serif;font-size:11px;padding:4px 8px;border-radius:3px;margin:0 4px 4px 0;letter-spacing:1px">'+a+'</span>';});
+  h+='</div>';
+  document.getElementById('modal-body').innerHTML=h;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function switchSeason(year){
+  document.querySelectorAll('[id^="stab-"]').forEach(function(el){el.style.background='';el.style.borderLeft='3px solid transparent';});
+  var at=document.getElementById('stab-'+year);
+  if(at){at.style.background='#FFF8E1';at.style.borderLeft='3px solid #B8860B';}
+  document.querySelectorAll('[id^="spanel-"]').forEach(function(el){el.style.display='none';});
+  var ap=document.getElementById('spanel-'+year);
+  if(ap)ap.style.display='block';
+  var sel=document.getElementById('season-year-select');
+  if(sel)sel.value=String(year);
+}
+
+function switchDraft(year){
+  document.querySelectorAll('.draft-tab').forEach(function(el){el.style.background='';el.style.borderLeft='3px solid transparent';});
+  var at=document.getElementById('dtab-'+year);
+  if(at){at.style.background='#FFF8E1';at.style.borderLeft='3px solid #B8860B';}
+  document.querySelectorAll('[id^=dpanel-]').forEach(function(el){el.style.display='none';});
+  var ap=document.getElementById('dpanel-'+year);
+  if(ap)ap.style.display='block';
+}
+
+var pageList=['home','standings','schedule','teams','rankings','seasons','drafts','history','memoriam'];
+function showPage(id){
+  pageList.forEach(function(p){
+    var pg=document.getElementById('page-'+p);if(pg)pg.style.display=p===id?'block':'none';
+    var bn=document.getElementById('nav-'+p);if(bn)bn.classList.remove('active');
+  });
+  var ab=document.getElementById('nav-'+id);if(ab)ab.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// Wire nav
+document.querySelectorAll('.nav-links button').forEach(function(btn){
+  var pid=btn.id.replace('nav-','');
+  btn.addEventListener('click',function(){showPage(pid);});
+});
+document.getElementById('nav-logo').addEventListener('click',function(){showPage('home');});
+document.getElementById('modal-close-btn').onclick=function(){document.getElementById('modal-overlay').classList.remove('open');};
+document.getElementById('modal-overlay').onclick=function(e){if(e.target===this)this.classList.remove('open');};
+
+renderHomeStandings();
+renderHomePR();
+renderHomeMatchups();
+renderTeams();
+renderRankings();
+// Hamburger menu
+document.getElementById('hamburger-btn').addEventListener('click', function(){
+  this.classList.toggle('open');
+  document.getElementById('nav-links-list').classList.toggle('mobile-open');
+});
+// Close menu when a nav item is clicked
+document.querySelectorAll('.nav-links button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.getElementById('hamburger-btn').classList.remove('open');
+    document.getElementById('nav-links-list').classList.remove('mobile-open');
+  });
+});
+// Close menu on outside tap
+document.addEventListener('click', function(e){
+  var nav = document.querySelector('nav');
+  if(!nav.contains(e.target)){
+    document.getElementById('hamburger-btn').classList.remove('open');
+    document.getElementById('nav-links-list').classList.remove('mobile-open');
+  }
+});
+
+</script>
+</body>
+</html>
