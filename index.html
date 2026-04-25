@@ -612,7 +612,7 @@ tr:last-child td{border-bottom:none;}
               <div style="font-size:13px;font-weight:700;color:#1B2A4A">Ryan Carello</div>
             </div>
           </div>
-          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Matt Pratt won the 2020 championship from his couch in Massachusetts. Carello scored the most points in the league, won the all-play, and finished runner-up. O'Regan finished third. Yahoo had a waiver wire glitch in week 14 that briefly processed claims it shouldn't have, generating a rules crisis that took days to resolve. Belleville departed after the season. Shaw described his own team as &ldquo;ass&rdquo; in early December before realizing he&rsquo;d typed &ldquo;tanked&rdquo; as &ldquo;ranked.&rdquo; Barney announced he was going to buy something extravagant with his first-place winnings. He did not finish first.</div>
+          <div style="font-size:13px;color:#3A3A3C;line-height:1.8;margin-bottom:18px">Matt Pratt won the 2020 championship from his couch in Massachusetts. Carello scored the most points in the league, won the all-play, and finished runner-up. O'Regan finished third. Yahoo had a waiver wire glitch in week 14 that briefly processed claims it shouldn't have, generating a rules crisis that took days to resolve. Belleville had departed after the 2019 season. Shaw described his own team as &ldquo;ass&rdquo; in early December before realizing he&rsquo;d typed &ldquo;tanked&rdquo; as &ldquo;ranked.&rdquo; Barney announced he was going to buy something extravagant with his first-place winnings. He did not finish first.</div>
           <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#8E8E93;text-transform:uppercase;margin-bottom:8px">From the chat</div>
           <div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Safe to say Trev's team is ASS.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">*tanked</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Commississioner</div></div><div style="margin-bottom:10px;padding:10px 12px;background:#FFFFFF;border-left:2px solid #D1D1D6;border-radius:0 4px 4px 0"><div style="font-size:12px;color:#3A3A3C;line-height:1.6">Here are all the scenarios for seeds 1-5 which I think I did right. Sorry it came out so bad.</div><div style="font-size:10px;color:#B8860B;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px">&mdash; Drew Egger</div></div>
           <div style="margin-top:16px">
@@ -1355,13 +1355,19 @@ function switchDraft(year){
 }
 
 var pageList=['home','standings','schedule','teams','rankings','seasons','drafts','history','memoriam'];
-function showPage(id){
+function showPage(id, pushState){
   pageList.forEach(function(p){
     var pg=document.getElementById('page-'+p);if(pg)pg.style.display=p===id?'block':'none';
     var bn=document.getElementById('nav-'+p);if(bn)bn.classList.remove('active');
   });
   var ab=document.getElementById('nav-'+id);if(ab)ab.classList.add('active');
   window.scrollTo(0,0);
+  if(pushState!==false){
+    var url=window.location.pathname+'#'+id;
+    if(window.location.hash!=='#'+id){
+      history.pushState({page:id},'',url);
+    }
+  }
 }
 
 // Wire nav
@@ -1398,6 +1404,23 @@ document.addEventListener('click', function(e){
     document.getElementById('nav-links-list').classList.remove('mobile-open');
   }
 });
+
+// Browser back/forward button support
+window.addEventListener('popstate', function(e){
+  var id = (e.state && e.state.page) ? e.state.page : 'home';
+  showPage(id, false);
+});
+
+// Handle direct URL with hash on load (e.g. thecommititee.com/#teams)
+(function(){
+  var hash = window.location.hash.replace('#','');
+  if(hash && pageList.indexOf(hash) !== -1){
+    showPage(hash, false);
+  } else {
+    // Set initial history state for home
+    history.replaceState({page:'home'}, '', window.location.pathname+'#home');
+  }
+})();
 
 </script>
 </body>
